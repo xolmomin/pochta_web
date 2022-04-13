@@ -12,12 +12,15 @@ class LoginView(View):
 
 
 class ModeratorView(View):
-    pass
+    def get(self, *args, **kwargs):
+        return render(self.request, 'app/pages/moderator.html')
 
 
 class ClientView(View):
-    pass
+    def get(self, *args, **kwargs):
+        return render(self.request, 'app/pages/client.html')
 
 
 class AdminView(View):
-    pass
+    def get(self, *args, **kwargs):
+        return render(self.request, 'app/pages/admin.html')

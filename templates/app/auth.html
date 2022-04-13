@@ -1,0 +1,61 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+
+        #auth-form {
+            position: absolute;
+            height: 200px;
+            width: 400px;
+            top: 50%;
+            left: 50%;
+            margin-top: -100px;
+            margin-left: -200px;
+            padding: 0;
+        }
+
+        #auth-form .card-header {
+            text-align: center;
+        }
+
+        #auth-form .input-group {
+            margin-bottom: 10px;
+        }
+
+        #auth-form .panel-body {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="main-container" class="container-fluid">
+        <div class="row">
+            <div id="auth-form" class="card border-primary">
+                <h5 class="card-header bg-primary text-white">
+                    Dasturga kirish
+                </h5>
+                <div class="card-body">
+                    <form class="panel-body" method="post" action="{% url 'login_page' %}">
+                        {% csrf_token %}
+                        <div class="input-group">
+                            <span class="input-group-text">
+                              <i class="fa fa-user"></i>
+                            </span>
+                            <input type="text" id="login" name="login" class="form-control" placeholder="Login">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                              <i class="fa fa-lock"></i>
+                            </span>
+                            <input type="password" id="password" name="password" class="form-control"
+                                   placeholder="Parol">
+                        </div>
+                        <button type="button" class="btn btn-primary">Kirish</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    {% block head %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/owlcarousel/owl.carousel.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/owlcarousel/owl.theme.default.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/css/style.bundle.css' %}"/>
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/css/custom.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+    <link rel="stylesheet" property="stylesheet"
+          href=" {% static 'app/modules/system/assets/css/framework.extras.css' %}">
+    <link rel="stylesheet" property="stylesheet" href=" {% static 'app/css/custom.css' %}">
+    {% block stylesheet %}
+    {% endblock %}
+</head>
+<body>
+{% block content %}{% endblock %}
+
+{% block script %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <style>
+        * {
+            transition: all 0.6s;
+        }
+
+        #my_body {
+            font-family: 'Lato', sans-serif;
+            color: #888;
+            margin: 0;
+            height: 100%;
+        }
+
+        #main {
+            display: table;
+            width: 100%;
+            height: 80vh;
+            text-align: center;
+        }
+
+        .fof {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .fof h1 {
+            font-size: 100px;
+            display: inline-block;
+            padding-right: 12px;
+            animation: type .5s alternate infinite;
+        }
+
+        @keyframes type {
+            from {
+                box-shadow: inset -3px 0px 0px #888;
+            }
+            to {
+                box-shadow: inset -3px 0px 0px transparent;
+            }
+        }
+    </style>
+    <div id="my_body">
+        <div id="main">
+            <div class="fof">
+                <h1>Error 404</h1>
+                <h4>This page is not found!</h4>
+                <a class="btn btn-success mt-3" href="{% url 'home_page' %}">Back to home page</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

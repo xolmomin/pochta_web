@@ -1,0 +1,79 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section class="main">
+
+            <div class="container border-bottom-4">
+                <div class="content_name_block">
+                    <a href="{% url 'admin_page' %}" class="content_name_block_back"><span
+                            class="fa fa-arrow-right"></span></a>
+                    <div class="content_name_block_text"><p> Referrallar tarixi </p></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <input type="text" value="{{ request.get_host }}/login/?id={{ user.id }}" readonly
+                                   class="ref_link form-control">
+                        </div>
+                        <button class="copy_ref_bn btn btn-primary">Nusxa ko'chirish</button>
+                    </div>
+                </div>
+                <div class="content_favorite">
+                    <div class="row">
+                        {% if users|length == 0 %}
+                            <div class="content_single-product-nouser">
+                                <div class="content_single-product-nouser_info">
+                                    <span class="fa fa-money" aria-hidden="true"></span>
+                                    <p> Referral tarixi bo'sh </p>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% for user in users %}
+                                <div class="col-md-12">
+                                    <h1 class="text-center">{{ user.full_name }} - {{ user.orders_count }} ta</h1>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function myFunction(strean_id) {
+            var r = confirm("Siz rostan ham oqimni ochirmoqchimisiz?");
+            if (r == true) {
+                $.ajax({
+                    method: "POST",
+                    url: "stream/" + strean_id,
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.reload();
+                    }
+                });
+                console.log("OK");
+            } else {
+                console.log("CANCEL");
+            }
+        }
+
+        $(".card-body .copy_ref_bn").on('click', function () {
+            var copyText = $(this).parent().find('.ref_link').get(0);
+
+            copyText.select();
+            document.execCommand("copy");
+            $(this).text('Nusxa olindi');
+        });
+    </script>
+{% endblock %}

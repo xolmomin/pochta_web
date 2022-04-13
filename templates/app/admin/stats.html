@@ -1,0 +1,59 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section class="main">
+            <div class="container">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-center">
+                        <tr>
+                            <th scope="col">Oqim</th>
+                            <th scope="col">Mahsulot</th>
+                            <th scope="col">Tashrif</th>
+                            <th scope="col">Yangi</th>
+                            <th scope="col">Qabul qilindi</th>
+                            <th scope="col">Yetkazilmoqda</th>
+                            <th scope="col">Yetqazib berildi</th>
+                            <th scope="col">Telefon ko'tarmadi</th>
+                            <th scope="col">Bekor qilindi</th>
+                            <th scope="col">Arxivlandi</th>
+                        </tr>
+                        </thead>
+
+                        <tbody class="text-center">
+                        {% for stream in streams %}
+                            <tr>
+                                <th>{{ stream.stream }}</th>
+                                <th>{{ stream.product }}</th>
+                                <td>{{ stream.count }}</td>
+                                <td>{{ stream.new }}</td>
+                                <td>{{ stream.accepted }}</td>
+                                <td>{{ stream.delivering }}</td>
+                                <td>{{ stream.delivered }}</td>
+                                <td>{{ stream.broken }}</td>
+                                <td>{{ stream.cancelled }}</td>
+                                <td>{{ stream.archived }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="bg-info">
+                            <td> JAMI</td>
+                            <td></td>
+                            <td> {{ total.count }} </td>
+                            <td> {{ total.new }} </td>
+                            <td> {{ total.accepted }} </td>
+                            <td> {{ total.delivering }} </td>
+                            <td> {{ total.delivered }} </td>
+                            <td> {{ total.broken }} </td>
+                            <td> {{ total.cancelled }} </td>
+                            <td> {{ total.archived }} </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

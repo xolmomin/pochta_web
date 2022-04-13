@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adminlar uchun qo'llanma - {{ site_name }}</title>
+    <link rel="stylesheet" href="{% static 'app/css/admin-privacy.css' %}">
+</head>
+<body>
+<div class="tl_page_wrap">
+    <div class="tl_page">
+        <main class="tl_article">
+            <header class="tl_article_header">
+                <h1 dir="auto">{{ site_name }} Adminlar uchun qo'llanma.</h1>
+                <address dir="auto">
+                    <a rel="author">100.uz</a><!--
+           -->
+                    <time datetime="2020-11-15T18:00:10+0000">November 15, 2020</time>
+                </address>
+            </header>
+            <article id="_tl_editor" class="tl_article_content ql-container ql-disabled">
+                <div class="ql-editor" contenteditable="false" dir="auto"><h1 data-placeholder="Title"
+                                                                              data-label="Title">{{ site_name }} Adminlar uchun
+                    qo'llanma.</h1>
+                    <address data-placeholder="Your name" data-label="Author">100.uz</address>
+                    <p>Avvalom bor <a href="{% url request.url %}" target="_blank">{{ site_name }}</a> proektiga bo'lgan
+                        qiziqishingiz uchun katta rahmat. Ushbu sahifada siz {{ site_name }} saytining adminlar uchun bo'limi
+                        bilan tanishishingiz mumkin, quyida biz ushbu bo'limni qisqacha ADMIN-PANEL deb ataymiz.</p>
+                    <p>Admin bo'limi quyidagi kornishiga ega. Admin-panel ga o'tish uchun siz {{ site_name }} saytidan
+                        ro'yhatdan o'tgan bolishingiz kerak. Agar sizda {{ site_name }} saytida profil bo'lsa <a
+                                href="https://{{ site_name }}/admin" target="_blank">https://{{ site_name }}/admin</a> linki orqali
+                        admin-panel ga o'ting.</p>
+                    <p><br></p>
+                    <figure contenteditable="false">
+                        <div class="figure_wrapper"><img src="https://telegra.ph/file/782d23fed2361cb63ef33.png"></div>
+                        <span class="cursor_wrapper" contenteditable="true"></span>
+                        <figcaption class="editable_text" data-placeholder="Caption (optional)">{{ site_name }}</figcaption>
+                    </figure>
+                    <p>Admin-panelning asosiy vazifasi sotuvni avtomatlashtirish iloji boricha inson ishtirokini
+                        kamaytirishdan va adminlarga qulay interfeys taqdim etish. Eng asosiysi mahsulotlar sotuvini
+                        kopaytirish orqali adminlarga internetda qulay va xavsiz pul ishlash tizimini yo'lga qo'yish
+                        imkoniyatini yaratadi. </p>
+                    <p><strong>Tizimning afzallik tomonlari:</strong></p>
+                    <ul>
+                        <li>Har bir sotilgan mahsulotdan o'z ulushingizni avtomatik tarzda admin-paneldagi hisobingizga
+                            tushurib beriladi.
+                        </li>
+                        <li>Barcha ishga tushurilgan reklamalarni statistikasini kuzatib borasiz.</li>
+                        <li>Tezkor yetqazib berish (1-3 kun) tizimi evaziga xaridorlar ishonchi yanada ortadi.</li>
+                        <li>Hisobingizdagi pul 72 soat ichida plastik kartaga tushurib beriladi.</li>
+                        <li>Sizning reklamangizdan tushgan barcha buyurtmalar ro'yhatini kora olasiz.<br class="inline">(bu
+                            orqali auditoriya haqida yanada koproq statistika toplab reklama sifatini oshirish
+                            imkoniyatini beradi).
+                        </li>
+                        <li>Tezkor <strong>call center, </strong>har bir tushgan buyurtma 1 soat ichida ko'rib
+                            chiqiladi, hech qaysi buyurtma etibordan chetda qolmaydi. Call center 3 yildan koproq
+                            tajribasi bor xodimlar jamoasidan tashkil topgan. <strong> </strong></li>
+                    </ul>
+                    <h3 id="Admin-panel-qiuyidagi-bo'limlardan-iborat:">Admin-panel qiuyidagi bo'limlardan iborat:</h3>
+                    <ul>
+                        <li>Mahsulotlar;</li>
+                        <li>Oqim;</li>
+                        <li>Statistika;</li>
+                        <li>To'lov;</li>
+                        <li>Mening jamoam;</li>
+                        <li>So'rovlar;</li>
+                        <li>Balans tarixi;</li>
+                    </ul>
+                    <h3 id="Mahsulotlar-bo'limi:">Mahsulotlar bo'limi:</h3>
+                    <p>Ushbu bo'limda siz hozirda sotuvda bor bo'lgan mahsulotlar ro'yhatini ko'rishingiz mumkin. Har
+                        bir mahsulot tagida mahsulot narxi, adminlar uchun to'lov (har bir mahsulotdan adminga
+                        ajratilgan summa), koversiya yani mahsulotning sotilish kayfitsenti (10 mahsulotdan bittasi
+                        sotilsa shunda konversiya 1% ga teng) va zaxiradan netcha mahsulot qolgani. </p>
+                    <p><strong>Oqim yaratish </strong>tugmasi orqali mahsulotga <strong>link</strong> yaratish mumkin.
+                        Yaratilgan link orqali tanlangan mahsulotni reklama qilishingiz mumkin bo'ladi.</p>
+                    <figure contenteditable="false">
+                        <div class="figure_wrapper"><img src="https://telegra.ph/file/52901e06f3efe64b50eb2.png"></div>
+                        <span class="cursor_wrapper" contenteditable="true"></span>
+                        <figcaption class="editable_text" data-placeholder="Caption (optional)">Mahsulotlar</figcaption>
+                    </figure>
+                    <h3 id="Oqim">Oqim</h3>
+                    <p>Ushbu bo'limda esa mahsulotlar bo'limida yaratilgan linklarni ro'yhatini ko'rishingiz mumkin. Har
+                        bir mahsulotga yaratilgan linkni qulay bolishi uchun <strong>Oqim</strong> deb nomlaymiz. Nusxa
+                        ko'chirish knopkasi orqali siz mahsulot lending sahifasiga link ko'chirib olib reklamani
+                        boshlashingiz mumkin.</p>
+                    <figure contenteditable="false">
+                        <div class="figure_wrapper"><img src="https://telegra.ph/file/09ddae9ac60a65cabb2f8.png"></div>
+                        <span class="cursor_wrapper" contenteditable="true"></span>
+                        <figcaption class="editable_text" data-placeholder="Caption (optional)"></figcaption>
+                    </figure>
+                    <h3 id="Statistika">Statistika</h3>
+                    <p>Bu bo'limda esa siz barcha yartilgan oqimlarning statistikasini ko'rishingiz mumkin.</p>
+                    <p><strong>Statistika jadvalininz ustunlari ma'nosi:&nbsp;</strong></p>
+                    <p><strong>Arxiv</strong>: barcha no'tog'ri ragamlar, dubl so'rovlar va rad qilingan so'rovlar </p>
+                    <p><strong>Qayta qo'ng'iroq</strong>: Telefon aparati o'chiq, xizmat doirasidan tashqarida yoki
+                        keyinroq qo'ng'iroq qilishni so'ragan so'rovlar. </p>
+                    <p><strong>No'soz mahsulot</strong>: almashtirishni so'ragan yoki brak mahsulot yetgazib berilgan.
+                        <br class="inline"><strong>Qabul gilindi</strong>: Operator bog'lanib bolgan so'rovlar.<br
+                                class="inline"><strong>Yetkazilmoqda: </strong>Ombordan chiqarib yuborilgan (mahsulot
+                        yetqazib <strong>beruvchi tashkilot</strong>da)<br class="inline"></p>
+                    <p><br></p>
+                    <p><br></p>
+                    <h3 id="To'lov">To'lov</h3>
+                    <p>Bu yerda hisobingizdagi pulni plastik kartangizga tushurib olishingiz mumkin.</p>
+                    <p><br></p>
+                    <h3 id="Mening-jamoam">Mening jamoam </h3>
+                    <p>Agar sizning tanishlaringiz orasida boshqa adminlar bo'lsa siz yanada koproq doaromad olishingiz
+                        mumkin. Buning uchun mening jamoam bo'limiga kirib referal linkni boshqa adminlarga yuboring.
+                        Ushbu link orqali ro'yhatdan o'tgan admin daromadidan sizga 10% foiz ajratiladi.</p>
+                    <figure contenteditable="false">
+                        <div class="figure_wrapper"><img src="https://telegra.ph/file/b084f5b5918a64f1d9cf2.png"></div>
+                        <span class="cursor_wrapper" contenteditable="true"></span>
+                        <figcaption class="editable_text" data-placeholder="Caption (optional)">Mening jamoam
+                        </figcaption>
+                    </figure>
+                    <p><br></p>
+                    <p><strong><em>FAQ - KO'P BERILADIGAN SAVOLLAR</em></strong></p>
+                    <p><strong>1 - Nima uchun mening hisobim minusga kirdi?</strong></p>
+                    <p>Sabab shundagi bazi holatlarda xaridor mahsulotni qaytaradi va mijozga mahsulot puli qaytarib
+                        beriladi. Shunday holatlarda tizim avtomatik tarzda admin hisobindan oldin qaytib kelgan
+                        mahsulot uchun to'lab berilgan summani yechib oladi.</p>
+                    <p><strong>2 - Qayday holatlarda so'rov arxivga ozgaradi?</strong></p>
+                    <p>Xaridor telefon raqamini noto'g'ri kiritgan bo'lsa, bitta raqamdan bitta mahsulotga 2 yoki undan
+                        ortiq so'rov tushgan bo'lsa, mijozdan operator rad javobini olsa.</p>
+                    <p><strong>3 - VIP Akkountning qanday qulayliklari bor?</strong></p>
+                    <p>VIP akkounti sohiblari quyidagi imkoniyatlarni qo'lga kiritishadi: mahsulotlarni aksiya narxida
+                        sotish, cheksiz mahsulotlar soni.</p>
+                    <p><strong>4 - Qanday qilib VIP akkount olishim mumkin?</strong></p>
+                    <p>VIP akkount faqatgina oxirgi bir oy ichida 5 mln ko'p ball toplaganlar uchun taqdim etiladi. </p>
+                    <p><br></p>
+                    <h3 id="Quyidagi-holatlarda-akkount-bloklanadi.">Quyidagi holatlarda akkount bloklanadi.</h3>
+                    <p>1 - Agar bitta foydalanuvchida bir nechta akkount borligi aniqlansa eng birinchi akkountdan
+                        boshqa hamma akkountlar balansi bilan birga bloklanadi.</p>
+                    <p>2 - PayPerView orqali daromad maqsadida saytga ddos ataka uyushtirganlar.</p>
+                    <p><br></p></div>
+                <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+                <div id="_tl_link_tooltip" class="tl_link_tooltip"></div>
+                <div id="_tl_tooltip" class="tl_tooltip">
+                    <div class="buttons">
+                        <span class="button_hover"></span>
+                        <span class="button_group"><!--
+             --><button id="_bold_button"></button><!--
+             --><button id="_italic_button"></button><!--
+             --><button id="_link_button"></button><!--
+           --></span><!--
+           --><span class="button_group"><!--
+             --><button id="_header_button"></button><!--
+             --><button id="_subheader_button"></button><!--
+             --><button id="_quote_button"></button><!--
+           --></span>
+                    </div>
+                    <div class="prompt">
+                        <span class="close"></span>
+                        <div class="prompt_input_wrap"><input type="url" class="prompt_input"></div>
+                    </div>
+                </div>
+                <div id="_tl_blocks" class="tl_blocks">
+                    <div class="buttons">
+                        <button id="_image_button"></button><!--
+           -->
+                        <button id="_embed_button"></button>
+                    </div>
+                </div>
+            </article>
+
+
+            <aside class="tl_article_buttons">
+                <div class="account account_top"></div>
+                <button id="_edit_button" class="button edit_button">Edit</button><!--
+         -->
+                <button id="_publish_button" class="button publish_button">Publish</button>
+                <div class="account account_bottom"></div>
+                <div id="_error_msg" class="error_msg"></div>
+            </aside>
+        </main>
+    </div>
+</div>
+<div id="_tl_alerts" class="tl_alerts"></div>
+<script>var T = {"apiUrl": "https:\/\/edit.telegra.ph", "datetime": 1605463210, "pageId": "9494cd0829f68b4217d41"};
+(function () {
+    var b = document.querySelector('time');
+    if (b && T.datetime) {
+        var a = new Date(1E3 * T.datetime),
+            d = 'January February March April May June July August September October November December'.split(' ')[a.getMonth()],
+            c = a.getDate();
+        b.innerText = d + ' ' + (10 > c ? '0' : '') + c + ', ' + a.getFullYear()
+    }
+})();</script>
+{#<script src="{% static 'app/js/admin-privacy.js' %}"></script>#}
+<script async=""
+        src="https://t.me/_websync_?path=100kuz-Adminlar-uchun-qollanma-11-15&amp;hash=30c9ad9eb6f12b4627"></script>
+
+</body>
+</html>

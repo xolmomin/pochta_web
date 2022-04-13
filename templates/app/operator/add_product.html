@@ -1,0 +1,75 @@
+{% extends 'app/operator/base.html' %}
+{% load static %}
+{% load custom_tag %}
+
+{% block title %}
+    Operator - Mahsulot qo'shish
+{% endblock %}
+
+{% block content %}
+    <br>
+    <br>
+    <div class="container">
+        <div class="col-md-6 col-sm-6 offset-2">
+            <form method="post" action="{% url 'operator_add_product' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="inputFullName">Ism Familyasi</label>
+                        <input type="text" name="fullname" class="form-control" id="inputFullName">
+                    </div>
+                    <br>
+                    <label for="location">Viloyat</label>
+                    <select class="form-control" id="location" name="location">
+                        {% for location in locations %}
+                            <option value="{{ location.0 }}">{{ location.1 }}</option>
+                        {% endfor %}
+                    </select>
+                    <br>
+                    <div class="form-group">
+                        <label for="inputAddress">Manzili</label>
+                        <input type="text" name="address" class="form-control" id="inputAddress">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="inputCount">Soni</label>
+                        <input type="number" name="quantity" class="form-control" id="inputCount">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="phone-mask">Telefon nomer</label>
+                        <input type="text" id="phone-mask" max="20" name="phone_number" class="form-control">
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <label for="product">Mahsulot</label>
+                        <select class="form-control" id="product" name="product">
+                            <option value="">Hammasi</option>
+                            {% for product in products %}
+                                <option {% if product.id == request.GET.product|to_int %}
+                                    selected {% endif %} value="{{ product.id }}">
+                                    {{ product.title }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                    {#                <input class="btn btn-primary" type="submit" value="Izlash">#}
+                    <input class="btn btn-primary" type="submit" value="Mahsulot qo'shish">
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+
+    <script>
+        $('#phone-mask').inputmask({"mask": "+\\9\\98(99) 999-99-99"});
+    </script>
+
+{% endblock %}

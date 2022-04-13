@@ -1,0 +1,121 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        .header_menu {
+            padding: 12px;
+        }
+
+        .header_menu .btn-default {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        .header_menu .btn-default.active, .header_menu .btn-default:hover {
+            background-color: #5c636a;
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <section class="main">
+        <!-- Modal -->
+{#        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"#}
+{#             aria-hidden="true">#}
+{#            <div class="modal-dialog" role="document">#}
+{#                <div class="modal-content">#}
+{#                    <div class="modal-header">#}
+{#                        <h5 class="modal-title" id="exampleModalLabel">Oqim yaratish</h5>#}
+{#                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                            <span aria-hidden="true">&times;</span>#}
+{#                        </button>#}
+{#                    </div>#}
+{#                    <div class="modal-body">#}
+{#                        <form method="POST" class="form-class">#}
+{#                            {% csrf_token %}#}
+{#                            <input name="product_id" type="hidden" id="hidden_product" value="dsadsa">#}
+{#                            {% for field in form %}#}
+{#                                {{ field.label }}#}
+{#                                {{ field }}#}
+{#                                {{ field.errors }}#}
+{#                            {% endfor %}#}
+{#                            <input type="submit" class="btn btn-primary mt-4" value="Oqim yaratish">#}
+{#                        </form>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+
+        <div class="container">
+            <br>
+            <br>
+            <h3 class="text-center"> Hozirda sotuvda bor <br> mahsulotlar </h3>
+            <br>
+
+            <div class="container border-bottom-4">
+                <div class="header_tab_menu">
+                    <div class="header_menu" style="overflow: auto">
+                        <a href="{% url 'market' %}" class="active btn btn-default"> Hammasi </a>
+                        {% for category in categories %}
+                            <a href="{% url 'market_by_category' category.slug %}"
+                               class="btn btn-default"> {{ category.title }} </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                {% for product in product_list %}
+                    <div class="col-sm-4 p-2">
+                        <div class="card">
+                            <a href="{% url 'product_detail_page' product.slug %}" target="_blank">
+                                <img class="card-img-top"
+                                     src="{{ product.get_image }}"
+                                     alt="{{ product.title }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{{ product.title }}"
+                                                          target="_blank"> {{ product.title }} </a></h5>
+                                <p class="text-muted"> {{ product.price }} so'm </p>
+                            </div>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">To'lov: <strong>{{ product.benefit }} </strong></li>
+                                <li class="list-group-item">Zaxirada: <strong> {{ product.quantity }} ta </strong></li>
+                                {% if product.discount %}
+                                    <li class="list-group-item">Chegirma: <strong> {{ product.discount }} </strong></li>
+                                {% endif %}
+                            </ul>
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="product_id" value="{{ product.id }}">
+                                <input type="submit" value="Oqim yaratish" class="btn btn-primary">
+                            </form>
+                            {% if product.tg_link %}
+                                <a href="{{ product.tg_link }}" class="btn bg-danger text-white mt-2">Reklama Posti</a>
+                            {% endif %}
+{#                            <button type="button" class="btn btn-primary btn_open_modal" data-toggle="modal"#}
+{#                                    data-target="#exampleModal" name="{{ product.id }}">#}
+{#                                Oqim yaratish#}
+{#                            </button>#}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{#{% block script %}#}
+{#    <script>#}
+{#        $(`.btn_open_modal`).on('click', function () {#}
+{#            let product_id = $(this).attr('name');#}
+{#            console.log(product_id);#}
+{#            $('#hidden_product').val(product_id);#}
+{#        })#}
+{#    </script>#}
+{#{% endblock %}#}

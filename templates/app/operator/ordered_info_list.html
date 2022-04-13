@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Kuryer listi</title>
+    <link rel="shortcut icon" href="{% static 'app/icons8-market-square-16.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/owlcarousel/owl.carousel.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/owlcarousel/owl.theme.default.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/css/style.bundle.css' %}"/>
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/css/custom.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+          rel="stylesheet"/>
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@1.5.2/dist/multiple-select.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+    <link rel="stylesheet" property="stylesheet"
+          href=" {% static 'app/modules/system/assets/css/framework.extras.css' %}">
+    <link rel="stylesheet" property="stylesheet" href=" {% static 'app/css/custom.css' %}">
+</head>
+<body>
+<div class="container-xl" id="printarea">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <table style="border-collapse: collapse; width: 100%;" border="1" id="frame">
+                <tbody>
+                <tr style="">
+                    <td style="width: 14.2857%; ">№</td>
+                    <td style="width: 14.2857%; ">Mijoz</td>
+                    <td style="width: 14.2857%; ">Viloyat</td>
+                    <td style="width: 14.2857%; ">Manzil</td>
+                    <td style="width: 14.2857%; ">Mahsulot</td>
+                    <td style="width: 14.2857%; ">Izoh</td>
+                    <td style="width: 14.2857%; ">Narxi</td>
+<!--                    <td style="width: 14.2857%; ">QR-KOD</td>-->
+                </tr>
+
+                {% for order in orders %}
+                    <tr style="">
+                        <td style="width: 14.2857%; ">{{ order.id }}</td>
+                        <td style="width: 14.2857%; ">
+                            {{ order.full_name }} <br/> {{ order.phone_number }}
+                        </td>
+                        <td style="width: 14.2857%; ">{{ order.location }}</td>
+                        <td style="width: 14.2857%; ">{{ order.address }}</td>
+                        <td style="width: 14.2857%; ">
+                            {{ order.product.title }} - <b>{{ order.quantity }} ta</b>
+                        </td>
+                        <td style="width: 14.2857%; ">{{ order.comment }}</td>
+                        <td style="width: 14.2857%; ">
+                            {{ order.product_sum }} so'm<br/>Dostavka:
+                            {{ order.currier.per_km_price }} so'm
+                        </td>
+<!--                        <td style="width: 14.2857%; ">-->
+<!--                            {# {{ order.qr_code }}#}-->
+<!--                            <img src="{{ order.qr_code.url }}" alt="{{ order.product.title }}" width="70px"-->
+<!--                                 style="max-width: none"/>-->
+<!--                        </td>-->
+
+                    </tr>
+                {% endfor %}
+
+                <tr style="height: 207px;">
+                    <td style="height: 207px;" colspan="7">
+                        <p>Mahsulot summasi: {{ all_product_sum }} so'm</p>
+                        <p>Dostavka summasi: {{ all_delivery_sum }} so'm</p>
+                        <p>Umumiy summa: {{ total_sum }} so'm</p>
+                        <p>Umumiy mahsulot soni: {{ total_product_count }} ta</p>
+                        <p>Umumiy buyurtma soni: {{ orders.count }} ta</p>
+<!--                        <p>Kuriyer:&nbsp;{{ orders.0.currier.first_name }} - {{ orders.0.currier.phone_number }}</p>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container-xl mt-3 mb-3">
+    <div class="d-flex justify-content-end">
+        <a href="{% url 'currier_page' %}" class="btn btn-primary">Orqaga</a>
+        <a href="#" class="btn btn-primary" onclick="printFunc()">Print</a>
+        <form method="POST" action="{% url 'ordered_info' id.pk %}">
+            {% csrf_token %}
+            {% for order in orders %}
+                <input type="text" hidden name="order_list" value="{{ order.id }}">
+            {% endfor %}
+
+            <input type="submit" name="delivering" class="btn btn-primary" value="yetkazilmoqda">
+            {# <a href="{% url 'operator_delivering' %}">Yetqazilmoqda</a>#}
+        </form>
+    </div>
+</div>
+<div class="container-xl">
+
+    <div class="row pl-4" id="printarea1">
+        {% for order in orders %}
+            <div style="width: 49%;display: inline-table;margin: 2px;font-size: 11px;">
+                <div class="table-responsive">
+                    <div class="table-wrapper">
+                        <table border="1" style="">
+                            <tbody>
+                            <tr style="">
+                                <td style="width: 25%;">№</td>
+                                <td style="width: 39%;">{{ order.id }} - {{ order.update_at }}</td>
+<!--                                <td style=" width: 20%;" rowspan="8">-->
+<!--                                    <img src="{{ order.qr_code.url }}" alt="{{ order.product.title }}" width="100px"-->
+<!--                                         style="max-width: none"/>-->
+<!--                                </td>-->
+                            </tr>
+                            <tr style="">
+                                <td style="">Mijoz</td>
+                                <td style="">{{ order.full_name }}<br/>{{ order.phone_number }}</td>
+                            </tr>
+                            <tr style="">
+                                <td style="">Manzil</td>
+                                <td style="">
+                                    <p style="">{{ order.address }} {{ order.location }}</p>
+                                </td>
+                            </tr>
+                            <tr style="">
+                                <td style="">Mahsulot</td>
+                                <td style="">{{ order.product.title }} - {{ order.quantity }} ta</td>
+                            </tr>
+                            <tr style="">
+                                <td style="">Izoh</td>
+                                <td style="">{{ order.comment }}</td>
+                            </tr>
+                            <tr style="">
+                                <td style="">Narxi</td>
+                                <td style="">{% widthratio order.product.price 1 order.quantity %} so'm</td>
+                            </tr>
+                            <tr style="">
+                                <td style="">Operator<br/>Call-center</td>
+                                <td style="">
+                                    #{{ order.operator.id }} {{ order.operator.first_name }} {{ order.operator.last_name }}<br/>{{ order.operator.phone_number }}
+                                </td>
+                            </tr>
+<!--                            <tr style="">-->
+<!--                                <td style="">Kuriyer</td>-->
+<!--                                <td style="">{{ order.currier.first_name }} {{ order.currier.last_name }}<br/>{{ order.currier.phone_number }}-->
+<!--                                </td>-->
+<!---->
+<!--                            </tr>-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="container-xl mt-3 mb-3">
+    <a href="#" class="btn btn-primary" onclick="printFunc1()">Print</a>
+</div>
+<script>
+    function printFunc() {
+        var divToPrint = document.getElementById('printarea');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'display: inline-table;' +
+            'margin: 2px;' +
+            'font-size: 11px;' +
+            '}' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        // newWin.document.write("<h3 align='center'>Print Page</h3>");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+
+    function printFunc1() {
+        var divToPrint = document.getElementById('printarea1');
+        var htmlToPrint = '' +
+            '<style type="text/css">' +
+            'table {' +
+            'display: inline-table;' +
+            'margin: 2px;' +
+            'font-size: 11px;' +
+            '}' +
+            '</style>';
+        htmlToPrint += divToPrint.outerHTML;
+        newWin = window.open("");
+        newWin.document.write(htmlToPrint);
+        newWin.print();
+        newWin.close();
+    }
+</script>
+</body>
+</html>

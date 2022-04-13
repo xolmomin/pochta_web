@@ -1,0 +1,38 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section class="main">
+
+            <div class="container border-bottom-4">
+                <div class="content_name_block">
+                    <a href="{% url 'admin_page' %}" class="content_name_block_back"><span
+                            class="fa fa-arrow-right"></span></a>
+                    <div class="content_name_block_text"><p> Balans tarixi </p></div>
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="content_favorite">
+                    <div class="row">
+                        {% if transactions|length == 0 %}
+                            <div class="content_single-product-nouser">
+                                <div class="content_single-product-nouser_info">
+                                    <span class="fa fa-money" aria-hidden="true"></span>
+                                    <p> Balans tarixi bo'sh </p>
+                                </div>
+                            </div>
+                        {% else %}
+                            {% for transaction in transactions %}
+                                <div class="col-md-3">
+                                    <h1>{{ transaction }}</h1>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

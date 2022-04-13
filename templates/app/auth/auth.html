@@ -1,0 +1,94 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 16px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .button2 {
+            background-color: white;
+            color: black;
+        }
+
+        .button2:hover {
+            background-color: #008CBA;
+            color: white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="main">
+            <div class="content_auth">
+                <div class="content_auth_block">
+                    <div id="authContainer">
+                        <div class="content_auth_form">
+                            {#                            <a href="{% url 'home_page' %}" class="header_navbar_brand_logo" style="font-family: AnjaliOldLipi;">#}
+                            {#                                {{ site_name }}#}
+                            {#                            </a>#}
+                            <div class="content_auth_form_group">
+                                {% if messages %}
+                                    <div class="container mb-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                {% for message in messages %}
+                                                    <div class="alert alert-{{ message.tags }} d-block"
+                                                         role="alert">{{ message }}</div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                <div class="content_auth_form_group_input">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {% for field in form %}
+                                            {{ field }}
+                                            <div style="border: #0a53be; background-color: yellow;">
+                                                <p>{{ field.errors }}</p>
+                                            </div>
+                                        {% endfor %}
+
+                                        <p class="mt-2"><label> <input type="checkbox" required> Men qoidalar bilan
+                                            tanishdim </label></p>
+                                        {#                                        <a class="btn-primary bg-danger text-white" href="{% url 'about_page' %}">#}
+                                        <a href="{% url 'about_page' %}" style="color: red;">
+                                            Foydalanish shartlari
+                                        </a>
+                                        <br>
+                                        <input type="submit" value="Kirish" class="button button2"
+                                               style="background-color: #4CAF50;"/>
+                                        <!--                                      {#  <a class="mt-2 btn-primary bg-warning text-white" href="{% url 'reset_password' %}">#}-->
+                                        <br>
+                                        <a href="{% url 'reset_password' %}" style="color: red;">
+                                            Parolni tiklash
+                                        </a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content_auth_footer">
+                    <a class="privacy" target="_blank" href=""> Maxfiylik siyosati </a> |
+                    <a class="terms" target="_blank" href="{% url 'about_page' %}"> Foydalanish shartlari </a> |
+                    <span class="copyright">Copyright © 2020 Barcha huquqlar himoyalangan</span>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

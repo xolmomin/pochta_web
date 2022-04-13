@@ -1,0 +1,584 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{% block title %}Admin - {{ site_name }}{% endblock %}</title>
+
+    {% block head %}
+
+    {% endblock %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/owlcarousel/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/owlcarousel/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/css/style.bundle.css' %}">
+    <link rel="stylesheet" href="{% static 'app/themes/stock/assets/css/custom.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i"
+          rel="stylesheet">
+    <link rel="stylesheet" property="stylesheet"
+          href="{% static 'app/modules/system/assets/css/framework.extras.css' %}">
+
+    <style type="text/css">
+        span.im-caret {
+            -webkit-animation: 1s blink step-end infinite;
+            animation: 1s blink step-end infinite;
+        }
+
+        @keyframes blink {
+            from, to {
+                border-right-color: black;
+            }
+            50% {
+                border-right-color: transparent;
+            }
+        }
+
+        @-webkit-keyframes blink {
+            from, to {
+                border-right-color: black;
+            }
+            50% {
+                border-right-color: transparent;
+            }
+        }
+
+        span.im-static {
+            color: grey;
+        }
+
+        div.im-colormask {
+            display: inline-block;
+            border-style: inset;
+            border-width: 2px;
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+            appearance: auto;
+        }
+
+        div.im-colormask > input {
+            position: absolute;
+            display: inline-block;
+            background-color: transparent;
+            color: transparent;
+            -webkit-appearance: caret;
+            -moz-appearance: caret;
+            appearance: auto;
+            border-style: none;
+            left: 0; /*calculated*/
+        }
+
+        div.im-colormask > input:focus {
+            outline: none;
+        }
+
+        div.im-colormask > input::-moz-selection {
+            background: none;
+        }
+
+        div.im-colormask > input::selection {
+            background: none;
+        }
+
+        div.im-colormask > input::-moz-selection {
+            background: none;
+        }
+
+        div.im-colormask > div {
+            color: black;
+            display: inline-block;
+            width: 100px; /*calculated*/
+        }
+
+        .header_navbar_collapse_nav_item_link span:before {
+            color: white;
+        }
+
+        @media screen and (max-width: 768px) {
+            .header_navbar_collapse {
+                background-color: #dedede;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://onesignal.com/sdks/OneSignalSDKStyles.css?v=2">
+    <style type="text/css" data-fbcssmodules="css:fb.css.basecss:fb.css.dialog css:fb.css.iframewidget">
+        .fb_hidden {
+            position: absolute;
+            top: -10000px;
+            z-index: 10001
+        }
+
+        .fb_reposition {
+            overflow: hidden;
+            position: relative
+        }
+
+        .fb_invisible {
+            display: none
+        }
+
+        .fb_reset {
+            background: none;
+            border: 0;
+            border-spacing: 0;
+            color: #000;
+            cursor: auto;
+            direction: ltr;
+            font-family: "lucida grande", tahoma, verdana, arial, sans-serif;
+            font-size: 11px;
+            font-style: normal;
+            font-variant: normal;
+            font-weight: normal;
+            letter-spacing: normal;
+            line-height: 1;
+            margin: 0;
+            overflow: visible;
+            padding: 0;
+            text-align: left;
+            text-decoration: none;
+            text-indent: 0;
+            text-shadow: none;
+            text-transform: none;
+            visibility: visible;
+            white-space: normal;
+            word-spacing: normal
+        }
+
+        .fb_reset > div {
+            overflow: hidden
+        }
+
+        @keyframes fb_transform {
+            from {
+                opacity: 0;
+                transform: scale(.95)
+            }
+            to {
+                opacity: 1;
+                transform: scale(1)
+            }
+        }
+
+        .fb_animate {
+            animation: fb_transform .3s forwards
+        }
+
+        .fb_dialog {
+            background: rgba(82, 82, 82, .7);
+            position: absolute;
+            top: -10000px;
+            z-index: 10001
+        }
+
+        .fb_dialog_advanced {
+            border-radius: 8px;
+            padding: 10px
+        }
+
+        .fb_dialog_content {
+            background: #fff;
+            color: #373737
+        }
+
+        .fb_dialog_close_icon {
+            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;
+            cursor: pointer;
+            display: block;
+            height: 15px;
+            position: absolute;
+            right: 18px;
+            top: 17px;
+            width: 15px
+        }
+
+        .fb_dialog_mobile .fb_dialog_close_icon {
+            left: 5px;
+            right: auto;
+            top: 5px
+        }
+
+        .fb_dialog_padding {
+            background-color: transparent;
+            position: absolute;
+            width: 1px;
+            z-index: -1
+        }
+
+        .fb_dialog_close_icon:hover {
+            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent
+        }
+
+        .fb_dialog_close_icon:active {
+            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent
+        }
+
+        .fb_dialog_iframe {
+            line-height: 0
+        }
+
+        .fb_dialog_content .dialog_title {
+            background: #6d84b4;
+            border: 1px solid #365899;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 0
+        }
+
+        .fb_dialog_content .dialog_title > span {
+            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;
+            float: left;
+            padding: 5px 0 7px 26px
+        }
+
+        body.fb_hidden {
+            height: 100%;
+            left: 0;
+            margin: 0;
+            overflow: visible;
+            position: absolute;
+            top: -10000px;
+            transform: none;
+            width: 100%
+        }
+
+        .fb_dialog.fb_dialog_mobile.loading {
+            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;
+            min-height: 100%;
+            min-width: 100%;
+            overflow: hidden;
+            position: absolute;
+            top: 0;
+            z-index: 10001
+        }
+
+        .fb_dialog.fb_dialog_mobile.loading.centered {
+            background: none;
+            height: auto;
+            min-height: initial;
+            min-width: initial;
+            width: auto
+        }
+
+        .fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner {
+            width: 100%
+        }
+
+        .fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content {
+            background: none
+        }
+
+        .loading.centered #fb_dialog_loader_close {
+            clear: both;
+            color: #fff;
+            display: block;
+            font-size: 18px;
+            padding-top: 20px
+        }
+
+        #fb-root #fb_dialog_ipad_overlay {
+            background: rgba(0, 0, 0, .4);
+            bottom: 0;
+            left: 0;
+            min-height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            z-index: 10000
+        }
+
+        #fb-root #fb_dialog_ipad_overlay.hidden {
+            display: none
+        }
+
+        .fb_dialog.fb_dialog_mobile.loading iframe {
+            visibility: hidden
+        }
+
+        .fb_dialog_mobile .fb_dialog_iframe {
+            position: sticky;
+            top: 0
+        }
+
+        .fb_dialog_content .dialog_header {
+            background: linear-gradient(#738aba, #2c4987);
+            border-bottom: 1px solid;
+            border-color: #043b87;
+            box-shadow: white 0 1px 1px -1px inset;
+            color: #fff;
+            font: bold 14px Helvetica, sans-serif;
+            text-overflow: ellipsis;
+            text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0;
+            vertical-align: middle;
+            white-space: nowrap
+        }
+
+        .fb_dialog_content .dialog_header table {
+            height: 43px;
+            width: 100%
+        }
+
+        .fb_dialog_content .dialog_header td.header_left {
+            font-size: 12px;
+            padding-left: 5px;
+            vertical-align: middle;
+            width: 60px
+        }
+
+        .fb_dialog_content .dialog_header td.header_right {
+            font-size: 12px;
+            padding-right: 5px;
+            vertical-align: middle;
+            width: 60px
+        }
+
+        .fb_dialog_content .touchable_button {
+            background: linear-gradient(#4267B2, #2a4887);
+            background-clip: padding-box;
+            border: 1px solid #29487d;
+            border-radius: 3px;
+            display: inline-block;
+            line-height: 18px;
+            margin-top: 3px;
+            max-width: 85px;
+            padding: 4px 12px;
+            position: relative
+        }
+
+        .fb_dialog_content .dialog_header .touchable_button input {
+            background: none;
+            border: none;
+            color: #fff;
+            font: bold 12px Helvetica, sans-serif;
+            margin: 2px -12px;
+            padding: 2px 6px 3px 6px;
+            text-shadow: rgba(0, 30, 84, .296875) 0 -1px 0
+        }
+
+        .fb_dialog_content .dialog_header .header_center {
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 18px;
+            text-align: center;
+            vertical-align: middle
+        }
+
+        .fb_dialog_content .dialog_content {
+            background: url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;
+            border: 1px solid #4a4a4a;
+            border-bottom: 0;
+            border-top: 0;
+            height: 150px
+        }
+
+        .fb_dialog_content .dialog_footer {
+            background: #f5f6f7;
+            border: 1px solid #4a4a4a;
+            border-top-color: #ccc;
+            height: 40px
+        }
+
+        #fb_dialog_loader_close {
+            float: left
+        }
+
+        .fb_dialog.fb_dialog_mobile .fb_dialog_close_icon {
+            visibility: hidden
+        }
+
+        #fb_dialog_loader_spinner {
+            animation: rotateSpinner 1.2s linear infinite;
+            background-color: transparent;
+            background-image: url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            height: 24px;
+            width: 24px
+        }
+
+        @keyframes rotateSpinner {
+            0% {
+                transform: rotate(0deg)
+            }
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+
+        .fb_iframe_widget {
+            display: inline-block;
+            position: relative
+        }
+
+        .fb_iframe_widget span {
+            display: inline-block;
+            position: relative;
+            text-align: justify
+        }
+
+        .fb_iframe_widget iframe {
+            position: absolute
+        }
+
+        .fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
+            max-width: 100%
+        }
+
+        .fb_iframe_widget_fluid_desktop iframe {
+            min-width: 220px;
+            position: relative
+        }
+
+        .fb_iframe_widget_lift {
+            z-index: 1
+        }
+
+        .fb_iframe_widget_fluid {
+            display: inline
+        }
+
+        .fb_iframe_widget_fluid span {
+            width: 100%
+        }
+    </style>
+</head>
+<header class="header" id="top" style="background-color: #d95041">
+    <div class="container" style="background-color: #d95041">
+        <nav class="header_navbar">
+
+            <a href="{% url 'home_page' %}" class="header_navbar_brand_logo"
+               style="font-style: italic; font-family: Sans-Serif,serif;"> {{ site_name }} </a>
+            <div class="header_navbar_collapse">
+                <ul class="header_navbar_collapse_nav">
+                    <!--
+                    <li class="header_navbar_collapse_nav_item">
+                      <div class="header_navbar_collapse_nav_item_pad">
+                        <a class="header_navbar_collapse_nav_item_link " href="/admin/products">
+                            <span class="fas fa-cart-plus"></span>
+                          <p> Offer </p></a
+                        >
+                      </div>
+                    </li> -->
+
+                    <li class="header_navbar_collapse_nav_item">
+                        <div class="header_navbar_collapse_nav_item_pad">
+                            <a class="header_navbar_collapse_nav_item_link " href="{% url 'market' %}"
+                               style="color: white;">
+                                <span class="fas fa-store back-white" aria-hidden="true"></span>
+                                <p> Market </p></a>
+                        </div>
+                    </li>
+
+                    <li class="header_navbar_collapse_nav_item">
+                        <div class="header_navbar_collapse_nav_item_pad">
+                            <a class="header_navbar_collapse_nav_item_link " href="{% url 'urls' %}"
+                               style="color: white;">
+                                <span class="fa fa-external-link back-white" aria-hidden="true"></span>
+                                <p> Oqim </p></a>
+                        </div>
+                    </li>
+                    <li class="header_navbar_collapse_nav_item">
+                        <div class="header_navbar_collapse_nav_item_pad">
+                            <a class="header_navbar_collapse_nav_item_link " href="{% url 'stats' %}"
+                               style="color: white;">
+                                <span class="fas fa-chart-bar back-white" aria-hidden="true"></span>
+                                <p> Statistika </p></a>
+                        </div>
+                    </li>
+                    <li class="header_navbar_collapse_nav_item">
+                        <div class="header_navbar_collapse_nav_item_pad">
+                            <a class="header_navbar_collapse_nav_item_link " href="{% url 'withdraw' %}"
+                               style="color: white;">
+                                <span class="fa fa-money back-white" aria-hidden="true"></span>
+                                <p> To'lov </p>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="header_navbar_profile">
+                <div class="d-flex align-items-center dropdown">
+                    <a class="btn nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">
+                        <img src="{% static 'app/themes/stock/assets/img/nouser.png' %}" alt="profile">
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right header_navbar_lang_menu_dropdown">
+                        <a class="dropdown-item header_navbar_lang_menu_dropdown_item" href="{% url 'profile' %}">
+                            Profil </a>
+                        <a class="dropdown-item header_navbar_lang_menu_dropdown_item"
+                           href="{% url 'liked_products' %}"> Sevimlilar </a>
+                        <a class="dropdown-item header_navbar_lang_menu_dropdown_item" href="{% url 'settings' %}">
+                            Sozlamalar </a>
+                        <a class="dropdown-item header_navbar_lang_menu_dropdown_item" href="{% url 'admin_page' %}">
+                            Adminlar uchun </a>
+                        {% if request.user.type != 'foydalanuvchi' %}
+                            <a class="dropdown-item header_navbar_lang_menu_dropdown_item"
+                               href="{% url 'operator_new' %}">
+                                Operator
+                            </a>
+                        {% endif %}
+                        <a class="dropdown-item header_navbar_lang_menu_dropdown_item" href="{% url 'logout' %}">
+                            Chiqish </a>
+                        <!--
+                            <hr class="my-2">
+                            <a class="bg-primary text-white dropdown-item header_navbar_lang_menu_dropdown_item">
+                                <img src="https://image.flaticon.com/icons/svg/206/206662.svg"
+                                     style="width: 24px; margin-right: 10px;" alt="">
+                                O'zbekcha
+                            </a>
+                            <a class=" dropdown-item header_navbar_lang_menu_dropdown_item">
+                                <img src="https://image.flaticon.com/icons/svg/555/555451.svg"
+                                     style="width: 24px; margin-right: 10px;" alt="">
+                                Русский
+                            </a>
+                            <hr class="my-2">
+                            <div class="d-flex justify-content-between px-2">
+                                <a href="" class="p-2">
+                                    <img src="https://image.flaticon.com/icons/svg/2111/2111646.svg" style="width: 20px;"
+                                         alt="">
+                                </a>
+
+                                <a href="" class="p-2">
+                                    <img src="https://image.flaticon.com/icons/svg/732/732179.svg" style="width: 20px;"
+                                         alt="">
+                                </a>
+
+                                <a target="_blank" href="" class="p-2">
+                                    <img src="https://image.flaticon.com/icons/svg/831/831276.svg" style="width: 20px;"
+                                         alt="">
+                                </a>
+                            </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+
+        </nav>
+    </div>
+</header>
+
+{% block content %}{% endblock %}
+
+<script src="{% static 'app/js/imask.js' %}"></script>
+<script src="{% static 'app/themes/stock/assets/js/bundle.js' %}"></script>
+<script src="{% static 'app/themes/stock/assets/lazysizes/lazysizes.min.js' %}"></script>
+<script src="{% static 'app/themes/stock/assets/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'app/themes/stock/assets/js/custom.js' %}"></script>
+<script src="{% static 'app/modules/system/assets/js/framework.js' %}"></script>
+<script src="{% static 'app/modules/system/assets/js/framework.extras.js' %}"></script>
+<script src="{% static 'app/js/bundle.js' %}"></script>
+<script src="https://kit.fontawesome.com/43236b6dfa.js" crossorigin="anonymous"></script>
+{% block script %}{% endblock %}
+<body>
+
+</body>
+</html>

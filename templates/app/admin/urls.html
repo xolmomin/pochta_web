@@ -1,0 +1,73 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <section class="main">
+        <div class="container">
+            <br>
+            <br>
+            <h3 class="text-center"> Mening havolalarim </h3>
+            <br>
+
+            <div class="row">
+                {% for stream in streams %}
+                    <div class="col-sm-4">
+                        <div class="card-header">
+                            <a href="#" onclick="myFunction({{ stream.id }})" data-request="onDeleteStream"
+                               data-request-data="'id': {{ stream.id }}, 'csrftoken':{{ csrf_token }}"
+                               data-request-flash="" data-request-success="$(this).closest('.col-sm-4').remove()"
+                               data-request-confirm="Siz rostan ham oqimni ochirmoqchimisiz?" class="text-danger"
+                               style="float: right"> <span class="fa fa-trash" aria-hidden="true"></span> </a>
+                            {% if stream.title|length > 20 %}
+                                <h5>{{ stream.title|make_list|slice:':20'|join:'' }}...</h5>
+                            {% else %}
+                                <h5>{{ stream.title }}</h5>
+                            {% endif %}
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="text" value="{{ stream.url }}" readonly class="ref_link form-control">
+                                </div>
+                                <button class="copy_ref_bn btn btn-primary">Nusxa ko'chirish</button>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function myFunction(strean_id) {
+            var r = confirm("Siz rostan ham oqimni ochirmoqchimisiz?");
+            if (r == true) {
+                $.ajax({
+                    method: "POST",
+                    url: "stream/" + strean_id,
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        window.location.reload();
+                    }
+                });
+                console.log("OK");
+            } else {
+                console.log("CANCEL");
+            }
+        }
+
+        $(".card-body .copy_ref_bn").on('click', function () {
+            var copyText = $(this).parent().find('.ref_link').get(0);
+
+            copyText.select();
+            document.execCommand("copy");
+            $(this).text('Nusxa olindi');
+        });
+    </script>
+{% endblock %}

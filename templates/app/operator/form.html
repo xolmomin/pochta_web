@@ -1,0 +1,155 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'app/bootstrap/css/bootstrap.css' %}">
+    <title>Hello, world!</title>
+</head>
+<body>
+
+<div class="container py-5">
+
+    <div class="row">
+        <h1>Hammasi to'g'ri kiritilganligiga e'tibor bering!</h1>
+        <p>Customer: <span>{{ order.user }} - {{ order.phone_number }}</span></p>
+        <p>{{ order.product }} - {{ order.price }}</p>
+    </div>
+    {% if order.status == order.BROKEN or order.status == order.DELIVERED %}
+        <a class="btn btn-primary" href="{% url 'operator_new' %}">Yangi buyurtmalarga o'tish</a>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-6">
+                    <p>Nechta:</p>
+                    <select class="form-select" aria-label="Default select example" name="quantity">
+                        <option value="{{ order.quantity }}">{{ order.quantity }} ta (foydalanuvchi tanlagan)</option>
+                        {% for _ in '0123456789'|make_list %}
+                            {{ forloop.counter }}
+                            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-6">
+                    <label>
+                        Chegirma
+                        <input class="form-control mt-3" name="discount" type="text" value="{{ order.discount }}">
+                    </label>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="mb-3 col-12">
+                    <label for="location">Viloyat:</label>
+                    <select class="form-control" id="location" name="location">
+                        {% for location in locations %}
+                            <option {% if location.0 == order.location %}
+                                selected{% endif %} value="{{ location.0 }}">{{ location.1 }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-12">
+                    <p>Manzil: </p>
+                    <label for="exampleFormControlInput1" class="form-label w-50">
+                        <input type="text" class="form-control" name="address" value="{{ order.address }}">
+                    </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-12">
+                    <label for="exampleFormControlInput3" class="form-label">Yuborish vaqti
+                        <input type="date" class="form-control" name="delivering_time"
+                                {#                               value="2021-05-06"/></label>#}
+                               value="{{ order.delivering_at|date:'Y-m-d' }}"/></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <h1>Buyurtma holati</h1>
+                <p>Buyurtma holatini o'zgartirishdan oldin har bir ma'lumot to'g'ri to'ldirilganligiga ishonch hosil
+                    qiling.</p>
+                <p>Har bir noto'g'ri to'ldirilgan holat uchun 50000 so'm jarima.</p>
+            </div>
+
+            <div class="row">
+                <div class="form-check">
+                    <input {% if order.status == order.NEW %}
+                        checked="checked"
+                    {% endif %} required class="sr-only form-check-input" type="radio" name="status"
+                        id="flexRadioDefault1"
+                        value="{{ order.NEW }}">
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Yangi buyurtma
+                    </label>
+                    <p>Hali bog'lanilmagan qurilma</p>
+                </div>
+                <div class="form-check">
+                    <input {% if order.status == order.READY_TO_DELIVERY %}
+                        checked="checked"
+                    {% endif %} required class="form-check-input sr-only" type="radio" name="status"
+                        id="flexRadioDefault2"
+                        value="{{ order.READY_TO_DELIVERY }}">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Dastavkaga tayyor
+                    </label>
+                    <p class="bg-primary">Klient buyurtma olishga tayyor yoki buyurtma olish uchun sana aniq
+                        qilindi</p>
+                </div>
+                <div class="form-check">
+                    <input {% if order.status == order.WAITING %}
+                        checked="checked"
+                    {% endif %} required class="form-check-input sr-only" type="radio" name="status"
+                        id="flexRadioDefault2"
+                        value="{{ order.WAITING }}">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Keyin oladi
+                    </label>
+                    <p class="bg-warning">2 marta ko'tarmadi, o'chirilgan, xizmat doirasida tashqarida</p>
+                </div>
+                <div class="form-check">
+                    <input {% if order.status == order.BROKEN %}
+                        checked="checked"
+                    {% endif %} required class="form-check-input sr-only" type="radio" name="status"
+                        id="flexRadioDefault2"
+                        value="{{ order.BROKEN }}">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Nosoz, bekor qilindi
+                    </label>
+                    <p class="bg-danger">Klient tomonidan shikoyat tushdi</p>
+                </div>
+                <div class="form-check">
+                    <input {% if order.status == order.ARCHIVE %}
+                        checked="checked"
+                    {% endif %} required class="form-check-input sr-only" type="radio" name="status"
+                        id="flexRadioDefault2"
+                        value="{{ order.ARCHIVE }}">
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Arxivlandi
+                    </label>
+                    <p class="bg-secondary">Noto'g'ri nomer, dubl buyurtma, Bekor qilindi, Olib bo'lgan</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Komment</label>
+                <textarea name="comment" class="form-control" id="exampleFormControlTextarea1"
+                          rows="3">{{ order.comment }}</textarea>
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+                <a href="{% url 'operator_new' %}" type="button" class="btn m-3 btn-secondary">Chiqish</a>
+                <input type="submit" class="btn m-3 btn-primary" value="Yuborish"/>
+            </div>
+        </form>
+    {% endif %}
+</div>
+
+</body>
+</html>

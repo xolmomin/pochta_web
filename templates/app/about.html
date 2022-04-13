@@ -1,0 +1,47 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}
+    Internet do'kon O'zbekiston bo'ylab bepul yetqazib berish - {{ site_name }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .container {
+            background: transparent !important;
+        }
+
+        .content_linear .content_linear_card {
+            background: #fff;
+            margin-bottom: 40px;
+            border: 1px solid #ddd;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="main">
+            <div class="container">
+                <br>
+                <h3>Biz haqimizda!</h3>
+                <br>
+                <p>aslsavdo.com companiyasi haqida</p>
+                <br>
+                <p>
+                    aslsavdo.com proektiga qiziqganiz uchun minnatdormiz. Bizning saytimiz orqali har bir sotuvchi erkin
+                    qulay va havfsiz pul ishlashi mumkin. - Har bir sotilgan mahsulotdan o'z ulushingizni avtomatik
+                    tarzda admin-paneldagi hisobingizga tushurib beriladi. - Barcha ishga tushurilgan reklamalarni
+                    statistikasini kuzatib borishingiz mumkin. - Tezkor yetkazib berish xizmati (1-3kun) -
+                    Hisobingizdagi pul 24 soat ichida plastik kartangizga tushurib beriladi. - Sizning reklamangizdan
+                    tushgan barcha buyurtmalar ro'yhatini ko'rishingiz mumkin. - Bu orqali auditoriya haqida yanada
+                    ko'proq statistika to'plab reklama sifatini yanada oshirish imkoniyatini beradi. - Tezkor call
+                    center, har bir tushgan buyurtmalarni 1 soat ichida ko'rib chiqiladi, hech qaysi buyurtma e'tibordan
+                    chetda qolib ketmaydi.
+                </p>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+

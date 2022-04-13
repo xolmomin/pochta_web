@@ -1,0 +1,64 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block content %}
+    <main>
+        <section class="main">
+            <div class="container border-bottom-4">
+                <div class="content_name_block">
+                    <a href="{% url 'admin_page' %}" class="content_name_block_back"><span
+                            class="fa fa-arrow-right"></span></a>
+                    <div class="content_name_block_text"><p> Oxirgi so'rovlar </p></div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="content_favorite">
+                    <div class="row">
+
+                        <div class="col-md-12 col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr style="text-align: center">
+                                        <th scope="col">#</th>
+{#                                        <th scope="col">Mahsulot</th>#}
+                                        <th scope="col">Oqim</th>
+                                        <th scope="col">Buyurtmachi</th>
+                                        <th scope="col">Viloyat</th>
+                                        <th scope="col">Holat</th>
+                                        <th scope="col">Izoh</th>
+                                        <th scope="col">Sana</th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    <tr class="text-center">
+                                        {% for order in orders %}
+                                            <tr {% if order.status == "Yangi" %}style="background-color: #a3e0a3;text-align: center;"{% endif %}
+                                                style="text-align: center;">
+                                                <th scope="col">
+                                                    {{ order.id }} <br>
+                                                    Operator: <br>
+                                                    {{ order.operator.id }}
+                                                </th>
+{#                                                <th scope="col">{{ order.product.title }}</th>#}
+                                                <th scope="col">{{ order.stream.title }}</th>
+                                                <th scope="col">{{ order.full_name }}</th>
+                                                <th scope="col">{{ order.location }}</th>
+                                                <th scope="col">{{ order.status }}</th>
+                                                <th scope="col">{{ order.comment }}</th>
+                                                <th scope="col">{{ order.update_at }}</th>
+                                            </tr>
+                                        {% endfor %}
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

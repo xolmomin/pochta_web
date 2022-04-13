@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div style="top: 13%; left: 28%;" class="position-fixed">
+        {% if messages %}
+            <div class="container mb-3 m-auto bg-danger rounded">
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} d-block"
+                                 role="alert">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div class="container bg-light text-center rounded p-4" style="margin-top: 180px;">
+        <form method="post">
+            {% csrf_token %}
+            <h4>+{{ phone_number }} telefon raqamiga sms yuborildi!</h4>
+            <input type="hidden" value="{{ phone_number }}" name="phone_number">
+            <label class="mt-4">
+                <input name="validation_code" style="width: 120px" class="form-control" type="text">
+            </label>
+            <input class="btn bg-primary text-light" type="submit" value="Yuborish">
+        </form>
+    </div>
+{% endblock %}

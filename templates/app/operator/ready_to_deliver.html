@@ -1,0 +1,65 @@
+{% extends 'app/operator/base.html' %}
+{% load static %}
+
+{% block title %}
+    Operatorlar bo'limi - Dostavkaga tayyor
+{% endblock %}
+
+{% block content %}
+
+    <div class="bg-light w-75 m-auto mt-5">
+        <form method="GET">
+            <div>{{ filtered_product.form.as_p }}</div>
+            <input class="btn btn-primary" type="submit" value="Saqlash">
+        </form>
+        <form method="POST" action="{% url 'currier_page' %}">
+            {% csrf_token %}
+
+            {% if filtered_product.qs %}
+            {% if request.user.type == 'operator' %}
+            {% else %}
+                <input class="btn btn-primary" type="submit" value="Chiqarish">
+            {% endif %}
+            {% else %}
+            {% endif %}
+            {% for order in filtered_product.qs %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="orders" value="{{ order.pk }}"
+                           id="order-{{ forloop.counter }}">
+
+                    <div class="card border-dark mt-5">
+                        <span style="
+                                position: absolute;
+                                right: 0px;
+                                border: 1px solid chartreuse;
+                                background: chartreuse;
+                                padding: 3px;
+                            ">
+                    #{{ order.operator.id }}
+                </span>
+                        <div class="card-body">
+                            <h2 class="card-title">{{ order.product.title }} - {{ order.product.price }} so'm</h2>
+                            <ul class="text-muted">
+                                <li class="">Client: {{ order.full_name }} - +{{ order.phone_number }}</li>
+                                <li class="">Address: {{ order.location }} {{ order.address }}</li>
+                                <li class="">Narxi: {% widthratio order.product.price 1 order.quantity %} so'm</li>
+                                <li class="">Soni: {{ order.quantity }}ta</li>
+                                <li class="">Komment: {{ order.comment }}</li>
+                                <li class="">Yetkazilish vaqti: {{ order.delivering_at }}</li>
+                                <li class="">ID: #{{ order.id }}</li>
+                                <li class="">Oqim ID: #{{ order.stream.pk }}</li>
+                                <li class="">Vaqti: {{ order.created_at }}</li>
+                                <li class="">Yangilangan vaqti: {{ order.update_at }}</li>
+                            </ul>
+                            {% if request.user.type == 'operator' %}
+                            {% else %}
+                            <a href="{% url 'order_detail' order.id %}" class="btn btn-primary">Holatini
+                                o'zgartirish</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </form>
+    </div>
+{% endblock %}

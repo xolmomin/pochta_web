@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_integer
 from django.db.models import (
@@ -73,7 +74,7 @@ class Letter(Model):
     phone = CharField(max_length=25, blank=True, null=True)
     address = CharField(max_length=255, blank=True, null=True)
     barcode = CharField(max_length=12, blank=True, null=True)
-    letter_text = TextField(null=True, blank=True)
+    letter_text = RichTextField(null=True, blank=True)
 
     delivered_at = DateTimeField(blank=True, null=True)
     curier_accepted_at = DateTimeField(blank=True, null=True)

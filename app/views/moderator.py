@@ -92,25 +92,3 @@ def moderator_report(request):
         # 'my_filter': my_filter
     }
     return render(request, 'app/moderator/report.html', context)
-
-
-def moderator_branch(request):
-    branches = Staff.objects.all()
-    page = request.GET.get('page', 1)
-
-    # my_filter = LetterFilter(request.GET, staff_queryest)
-    # staff_queryest = my_filter.qs
-
-    paginator = Paginator(branches, 10)
-    try:
-        branches = paginator.page(page)
-    except PageNotAnInteger:
-        branches = paginator.page(1)
-    except EmptyPage:
-        branches = paginator.page(paginator.num_pages)
-
-    context = {
-        'branches': branches,
-        # 'my_filter': my_filter
-    }
-    return render(request, 'app/moderator/branch.html', context)

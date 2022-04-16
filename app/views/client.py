@@ -1,10 +1,11 @@
-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from django.views.generic import View
 
 from app.filters import LetterFilter
+from app.forms import CreateLetterForm
 from app.models import Letter, Staff
+
 
 def client_letter(request):
     letters_queryset = Letter.objects.all()
@@ -25,11 +26,10 @@ def client_letter(request):
         'letters': letters_queryset,
         'my_filter': my_filter
     }
-
     return render(request, 'app/client/letter.html', context)
 
 
-def client_client(request):
+def client_new_letter(request):
     staff_queryset = Staff.objects.all()
     page = request.GET.get('page', 1)
 
@@ -48,29 +48,7 @@ def client_client(request):
         'clients': staff_queryset,
         # 'my_filter': my_filter
     }
-    return render(request, 'app/client/client.html', context)
-
-
-def client_staff(request):
-    staffs_queryset = Staff.objects.all()
-    page = request.GET.get('page', 1)
-
-    # my_filter = LetterFilter(request.GET, staff_queryest)
-    # staff_queryest = my_filter.qs
-
-    paginator = Paginator(staffs_queryset, 10)
-    try:
-        staffs_queryset = paginator.page(page)
-    except PageNotAnInteger:
-        staffs_queryset = paginator.page(1)
-    except EmptyPage:
-        staffs_queryset = paginator.page(paginator.num_pages)
-
-    context = {
-        'staffs': staffs_queryset,
-        # 'my_filter': my_filter
-    }
-    return render(request, 'app/client/staff.html', context)
+    return render(request, 'app/client/new-letter.html', context)
 
 
 def client_report(request):
@@ -95,23 +73,6 @@ def client_report(request):
     return render(request, 'app/client/report.html', context)
 
 
-def client_branch(request):
-    branches = Staff.objects.all()
-    page = request.GET.get('page', 1)
-
-    # my_filter = LetterFilter(request.GET, staff_queryest)
-    # staff_queryest = my_filter.qs
-
-    paginator = Paginator(branches, 10)
-    try:
-        branches = paginator.page(page)
-    except PageNotAnInteger:
-        branches = paginator.page(1)
-    except EmptyPage:
-        branches = paginator.page(paginator.num_pages)
-
-    context = {
-        'branches': branches,
-        # 'my_filter': my_filter
-    }
-    return render(request, 'app/client/branch.html', context)
+def create_letter(request):
+    form = CreateLetterForm()
+    return render(request, 'app/client/create-letter.html', {'form': form})

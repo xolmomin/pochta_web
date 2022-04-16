@@ -1,0 +1,65 @@
+{% extends 'app/base.html' %}
+{% load static %}
+
+{% block main_body %}
+    {#<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">#}
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Client</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="col-md-3 text-end">
+            <button type="button" class="btn btn-outline-dark me-2">Chiqish</button>
+            <button type="button" class="btn btn-warning">Kirish</button>
+        </div>
+    </header>
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <a href="{% url 'client_letter_page' %}" class="nav-link
+                            {% if request.resolver_match.url_name == 'client_letter_page' %}
+                            active
+                            {% endif %}">
+                            Xatlar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client_new_letter_page' %}" class="nav-link link-dark
+                            {% if request.resolver_match.url_name == 'client_new_letter_page' %}
+                          active
+                            {% endif %}">
+                            Yangi xat
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'client_report_page' %}" class="nav-link link-dark
+                            {% if request.resolver_match.url_name == 'client_report_page' %}
+                          active
+                            {% endif %}">
+                            Hisobot
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+{% endblock %}
+

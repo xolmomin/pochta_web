@@ -19,7 +19,8 @@ urlpatterns += [
 # client
 urlpatterns += [
     path('client/letter', client.client_letter, name='client_letter_page'),
-    path('client/new-letter', client.client_client, name='client_new_letter_page'),
+    path('client/new-letter', client.client_new_letter, name='client_new_letter_page'),
+    path('client/create-letter', client.create_letter, name='client_create_letter_page'),
     path('client/report', client.client_report, name='client_report_page'),
 ]
 

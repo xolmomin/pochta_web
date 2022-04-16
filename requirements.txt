@@ -3,9 +3,11 @@ backports.zoneinfo==0.2.1
 defusedxml==0.7.1
 diff-match-patch==20200713
 Django==4.0.4
+django-ckeditor==6.4.0
 django-crispy-forms==1.14.0
 django-filter==21.1
 django-import-export==2.8.0
+django-js-asset==2.0.0
 djangorestframework==3.13.1
 et-xmlfile==1.1.0
 MarkupPy==1.14

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_filters',
     'import_export',
     'crispy_forms',
+    'ckeditor',
     'app',
 ]
 
@@ -138,3 +139,17 @@ REST_FRAMEWORK = {
     ),
     'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
 }
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

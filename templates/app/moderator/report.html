@@ -1,0 +1,72 @@
+{% extends 'app/moderator/base.html' %}
+{% load static %}
+
+{% block title %}
+    Hisobot oynasi
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4>Hisobot</h4>
+{#        <h4>{{ my_filter.form }}</h4>#}
+
+        <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+                <thead>
+                <th><input type="checkbox" id="checkall"/></th>
+                <th>ID</th>
+                <th>Tashkilot</th>
+                <th>Xatlar soni</th>
+                <th>INN</th>
+                </thead>
+                <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="checkthis"/>
+                        </td>
+                        <td>{{ report.id }}</td>
+                        <td>{{ report.company }}</td>
+                        <td>{{ report.get_letter_client_count }}</td>
+                        <td>{{ report.inn }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% if reports.has_other_pages %}
+            <ul class="pagination">
+                {% if reports.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ reports.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span>&laquo;</span></li>
+                {% endif %}
+
+                {% for i in reports.paginator.page_range %}
+                    {% if reports.number == i %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ i }}
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if reports.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ reports.next_page_number }}">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span>&raquo;</span></li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+
+    </div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block title %}
+    Filiallar oynasi
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4>Filiallar</h4>
+{#        <h4>{{ my_filter.form }}</h4>#}
+        <span>
+            <a href="#" class="btn btn-primary">Qo'shish</a>
+        </span>
+
+        <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+                <thead>
+                <th><input type="checkbox" id="checkall"/></th>
+                <th>ID</th>
+                <th>FISh</th>
+                <th>Telefon</th>
+                <th>Viloyat</th>
+                <th>Pochta</th>
+                <th>Login</th>
+                <th>Manzil</th>
+                </thead>
+                <tbody>
+                {% for branch in branches %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="checkthis"/>
+                        </td>
+                        <td>{{ branch.id }}</td>
+                        <td>{{ branch.name }}</td>
+                        <td>{{ branch.phone }}</td>
+                        <td>{{ branch.region }}</td>
+                        <td>{{ branch.email }}</td>
+                        <td>{{ branch.username }}</td>
+                        <td>{{ branch.address }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% if branches.has_other_pages %}
+            <ul class="pagination">
+                {% if branches.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ branches.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled"><span>&laquo;</span></li>
+                {% endif %}
+
+                {% for i in branches.paginator.page_range %}
+                    {% if branches.number == i %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ i }}
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if branches.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ branches.next_page_number }}">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span>&raquo;</span></li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+
+    </div>
+{% endblock %}

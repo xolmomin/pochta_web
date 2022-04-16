@@ -4,19 +4,12 @@
     {#<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">#}
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Admin</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Moderator</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        {#    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">#}
-        {#        <li><a href="#" class="nav-link px-2 link-secondary">Xatlar</a></li>#}
-        {#        <li><a href="#" class="nav-link px-2 link-white">Klientlar</a></li>#}
-        {#        <li><a href="#" class="nav-link px-2 link-white">Xodimlar</a></li>#}
-        {#        <li><a href="#" class="nav-link px-2 link-white">Hisobot</a></li>#}
-        {#        <li><a href="#" class="nav-link px-2 link-white">Filiallar</a></li>#}
-        {#    </ul>#}
 
         <div class="col-md-3 text-end">
             <button type="button" class="btn btn-outline-dark me-2">Chiqish</button>
@@ -29,43 +22,35 @@
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
                 <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
-                        <a href="{% url 'admin_letter_page' %}" class="nav-link
-                            {% if request.resolver_match.url_name == 'admin_letter_page' %}
+                        <a href="{% url 'mod_letter_page' %}" class="nav-link
+                            {% if request.resolver_match.url_name == 'mod_letter_page' %}
                             active
                             {% endif %}">
                             Xatlar
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'admin_client_page' %}" class="nav-link link-dark
-                            {% if request.resolver_match.url_name == 'admin_client_page' %}
+                        <a href="{% url 'mod_client_page' %}" class="nav-link link-dark
+                            {% if request.resolver_match.url_name == 'mod_client_page' %}
                             active
                             {% endif %}">
                             Klientlar
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'admin_staff_page' %}" class="nav-link link-dark
-                            {% if request.resolver_match.url_name == 'admin_staff_page' %}
+                        <a href="{% url 'mod_staff_page' %}" class="nav-link link-dark
+                            {% if request.resolver_match.url_name == 'mod_staff_page' %}
                           active
                             {% endif %}">
                             Xodimlar
                         </a>
                     </li>
                     <li>
-                        <a href="{% url 'admin_report_page' %}" class="nav-link link-dark
-                            {% if request.resolver_match.url_name == 'admin_report_page' %}
+                        <a href="{% url 'mod_report_page' %}" class="nav-link link-dark
+                            {% if request.resolver_match.url_name == 'mod_report_page' %}
                           active
                             {% endif %}">
                             Hisobot
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'admin_branch_page' %}" class="nav-link link-dark
-                            {% if request.resolver_match.url_name == 'admin_branch_page' %}
-                          active
-                            {% endif %}">
-                            Filiallar
                         </a>
                     </li>
                 </ul>

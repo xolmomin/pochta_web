@@ -1,10 +1,32 @@
 from django.urls import path
 
-from app.views import LoginView, ClientView, AdminView, ModeratorView
+from app.views import admin, auth, client, moderator as mod
 
+# auth
 urlpatterns = [
-    path('', LoginView.as_view(), name='login_page'),
-    path('client', ClientView.as_view(), name='client_page'),
-    path('admin', AdminView.as_view(), name='admin_page'),
-    path('moderator', ModeratorView.as_view(), name='moderator_page'),
+    path('', auth.LoginView.as_view(), name='login_page'),
+]
+
+# admin
+urlpatterns += [
+    path('admin/letter', admin.admin_letter, name='admin_letter_page'),
+    path('admin/client', admin.admin_client, name='admin_client_page'),
+    path('admin/staff', admin.admin_staff, name='admin_staff_page'),
+    path('admin/report', admin.admin_report, name='admin_report_page'),
+    path('admin/branch', admin.admin_branch, name='admin_branch_page'),
+]
+
+# client
+urlpatterns += [
+    path('client/letter', client.client_letter, name='client_letter_page'),
+    path('client/new-letter', client.client_client, name='client_new_letter_page'),
+    path('client/report', client.client_report, name='client_report_page'),
+]
+
+# moderator
+urlpatterns += [
+    path('mod/letter', mod.moderator_letter, name='mod_letter_page'),
+    path('mod/client', mod.moderator_client, name='mod_client_page'),
+    path('mod/staff', mod.moderator_staff, name='mod_staff_page'),
+    path('mod/report', mod.moderator_report, name='mod_report_page'),
 ]

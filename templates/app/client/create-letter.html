@@ -10,7 +10,7 @@
 
     <div class="col-md-12">
         {#        <h4>{{ my_filter.form }}</h4>#}
-        <form method="post" action="#">
+        <form method="post" action="#" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-4 mb-0">
@@ -32,6 +32,8 @@
                 </div>
             </div>
             {{ form.letter_text|as_crispy_field }}
+            {{ form.media }}
+
             <button type="submit" class="btn btn-primary">Qo'shish</button>
         </form>
     </div>

@@ -35,12 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework',
+    # 'rest_framework.authtoken',
     'django_filters',
     'import_export',
     'crispy_forms',
     'ckeditor',
+    'ckeditor_uploader',
     'app',
 ]
 
@@ -110,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
@@ -130,26 +131,23 @@ MEDIA_ROOT = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DATETIME_FORMAT': "%Y-%m-%d %H:%M:%S",
-}
-
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ]
+        'toolbar': None,
+        'width': 'auto',
+        # 'height': '350px',
+        # 'toolbar': 'Custom',
+        # 'toolbar_Custom': [
+        #     ['Bold', 'Italic', 'Underline'],
+        #     ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        #     ['Link', 'Unlink'],
+        #     ['RemoveFormat', 'Source']
+        # ]
+        # 'extraPlugins': ','.join(['codesnippet']),
     }
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_UPLOAD_PATH = "image_upload/"

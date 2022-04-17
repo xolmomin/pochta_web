@@ -74,5 +74,14 @@ def client_report(request):
 
 
 def create_letter(request):
-    form = CreateLetterForm()
+    if request.method == 'POST':
+        form = CreateLetterForm(request.POST)
+        if form.is_valid():
+            letter = form.save(commit=False)
+            # letter.client_id = request.user
+            letter.client_id = 1
+            letter.save()
+            return render(request, 'app/client/create-letter.html', {'form': form})
+    else:
+        form = CreateLetterForm()
     return render(request, 'app/client/create-letter.html', {'form': form})

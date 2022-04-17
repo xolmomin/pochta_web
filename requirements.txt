@@ -8,11 +8,11 @@ django-crispy-forms==1.14.0
 django-filter==21.1
 django-import-export==2.8.0
 django-js-asset==2.0.0
-djangorestframework==3.13.1
 et-xmlfile==1.1.0
 MarkupPy==1.14
 odfpy==1.4.1
 openpyxl==3.0.9
+Pillow==9.1.0
 pytz==2022.1
 PyYAML==6.0
 sqlparse==0.4.2

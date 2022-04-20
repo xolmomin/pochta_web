@@ -34,7 +34,7 @@
                         <td>{{ client.inn }}</td>
                         <td>{{ client.phone }}</td>
                         <td>{{ client.username }}</td>
-                        <td>{{ client.date_joined }}</td>
+                        <td>{{ client.date_joined|date:"m-d-Y H:i" }}</td>
                         {#                        <td>#}
                         {#                            <p data-placement="top" data-toggle="tooltip" title="Edit">#}
                         {#                                <a href="/edit/{{ lettter.id }}"#}

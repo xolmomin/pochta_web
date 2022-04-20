@@ -1,11 +1,13 @@
-
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
-from django.views.generic import View
+from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
 from app.models import Letter, Staff
+from app.permissions import IsAdminMixin
 
+
+@permission_classes((IsAdminMixin,))
 def admin_letter(request):
     letters_queryset = Letter.objects.all()
     page = request.GET.get('page', 1)
@@ -29,6 +31,7 @@ def admin_letter(request):
     return render(request, 'app/admin/letter.html', context)
 
 
+@permission_classes((IsAdminMixin,))
 def admin_client(request):
     staff_queryset = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -51,6 +54,7 @@ def admin_client(request):
     return render(request, 'app/admin/client.html', context)
 
 
+@permission_classes((IsAdminMixin,))
 def admin_staff(request):
     staffs_queryset = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -73,6 +77,7 @@ def admin_staff(request):
     return render(request, 'app/admin/staff.html', context)
 
 
+@permission_classes((IsAdminMixin,))
 def admin_report(request):
     reports = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -95,6 +100,7 @@ def admin_report(request):
     return render(request, 'app/admin/report.html', context)
 
 
+@permission_classes((IsAdminMixin,))
 def admin_branch(request):
     branches = Staff.objects.all()
     page = request.GET.get('page', 1)

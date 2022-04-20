@@ -1,10 +1,13 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
+from rest_framework.decorators import permission_classes, api_view
 
 from app.filters import LetterFilter
 from app.models import Letter, Staff
+from app.permissions import IsModeratorMixin
 
 
+@permission_classes([IsModeratorMixin])
 def moderator_letter(request):
     letters_queryset = Letter.objects.all()
     page = request.GET.get('page', 1)
@@ -28,6 +31,7 @@ def moderator_letter(request):
     return render(request, 'app/moderator/letter.html', context)
 
 
+@permission_classes((IsModeratorMixin,))
 def moderator_client(request):
     staff_queryset = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -50,6 +54,7 @@ def moderator_client(request):
     return render(request, 'app/moderator/client.html', context)
 
 
+@permission_classes((IsModeratorMixin,))
 def moderator_staff(request):
     staffs_queryset = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -72,6 +77,7 @@ def moderator_staff(request):
     return render(request, 'app/moderator/staff.html', context)
 
 
+@permission_classes((IsModeratorMixin,))
 def moderator_report(request):
     reports = Staff.objects.all()
     page = request.GET.get('page', 1)

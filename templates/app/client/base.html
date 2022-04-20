@@ -13,8 +13,11 @@
         </button>
 
         <div class="col-md-3 text-end">
-            <button type="button" class="btn btn-outline-dark me-2">Chiqish</button>
-            <button type="button" class="btn btn-warning">Kirish</button>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout_page' %}" type="button" class="btn btn-outline-dark me-2">Chiqish</a>
+            {% else %}
+                <a href="{% url 'login_page' %}" type="button" class="btn btn-warning">Kirish</a>
+            {% endif %}
         </div>
     </header>
 

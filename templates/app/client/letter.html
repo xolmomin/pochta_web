@@ -34,9 +34,9 @@
                         <td>{{ letter.barcode }}</td>
                         <td>{{ letter.region }}</td>
                         <td>{{ letter.district }}</td>
-                        <td>{{ letter.created_at }}</td>
-                        <td>{{ letter.delivered_at }}</td>
-                        <td>{{ letter.status }}</td>
+                        <td>{{ letter.created_at|date:"m-d-Y H:M" }}</td>
+                        <td>{{ letter.delivered_at|date:"m-d-Y H:M" }}</td>
+                        <td>{{ letter.get_status }}</td>
                         {#                        <td>#}
                         {#                            <p data-placement="top" data-toggle="tooltip" title="Edit">#}
                         {#                                <a href="/edit/{{ lettter.id }}"#}

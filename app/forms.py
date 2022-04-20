@@ -1,8 +1,9 @@
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import TextInput
 
-from app.models import Region, District, Letter
+from app.models import Region, District, Letter, Staff
 
 
 class CreateLetterForm(forms.ModelForm):
@@ -24,3 +25,22 @@ class CreateLetterForm(forms.ModelForm):
             'phone': TextInput(attrs={'placeholder': 'Telefon', 'type': 'number'}),
             'address': TextInput(attrs={'placeholder': 'Manzil'}),
         }
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Login'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control", 'placeholder': 'Parol'}))
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if not Staff.objects.filter(username=username).exists():
+            raise ValidationError('Login xato')
+        return username
+
+    def clean_password(self):
+        username = self.clean_username()
+        password = self.cleaned_data['password']
+        user = Staff.objects.filter(username=username).first()
+        if not user.check_password(password):
+            raise ValidationError('Parol xato')
+        return password

@@ -1,11 +1,9 @@
-from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import validate_integer
 from django.db.models import (
     SmallIntegerField,
     Model,
-    TextField,
     DateTimeField,
     CASCADE,
     ForeignKey,
@@ -67,7 +65,7 @@ class Letter(Model):
     client = ForeignKey("app.Staff", SET_NULL, "letter_client", blank=True, null=True)
     region = ForeignKey("app.Region", SET_NULL, blank=True, null=True)
     district = ForeignKey("app.District", SET_NULL, blank=True, null=True)
-    curier = ForeignKey("app.Staff", SET_NULL, "letter_curier", blank=True, null=True)
+    currier = ForeignKey("app.Staff", SET_NULL, "letter_currier", blank=True, null=True)
 
     company = CharField(max_length=255, blank=True, null=True)
     name = CharField(max_length=255, blank=True, null=True)
@@ -78,7 +76,7 @@ class Letter(Model):
     letter_text = RichTextUploadingField(null=True, blank=True)
 
     delivered_at = DateTimeField(blank=True, null=True)
-    curier_accepted_at = DateTimeField(blank=True, null=True)
+    currier_accepted_at = DateTimeField(blank=True, null=True)
     created_at = DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
@@ -87,6 +85,9 @@ class Letter(Model):
 
     def __str__(self):
         return str(self.pk)
+
+    def get_status(self):
+        return dict(self.STATUS).get(self.status)
 
 
 class Staff(AbstractUser):
@@ -129,9 +130,9 @@ class Staff(AbstractUser):
         return self.letter_client.all()
 
     @property
-    def get_letter_curier_count(self):
-        return self.letter_curier.count()
+    def get_letter_currier_count(self):
+        return self.letter_currier.count()
 
     @property
-    def get_letter_curier(self):
-        return self.letter_curier.all()
+    def get_letter_currier(self):
+        return self.letter_currier.all()

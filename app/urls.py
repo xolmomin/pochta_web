@@ -5,6 +5,7 @@ from app.views import admin, auth, client, moderator as mod
 # auth
 urlpatterns = [
     path('', auth.LoginView.as_view(), name='login_page'),
+    path('logout', auth.LogoutView.as_view(), name='logout_page'),
 ]
 
 # admin

@@ -6,9 +6,9 @@ from django.urls import path, include, re_path
 from core import settings
 
 urlpatterns = [
-  path('master-admin/', admin.site.urls),
+  path('django-admin/', admin.site.urls),
   path('', include('app.urls')),
-  path('api/v1/', include('app.api.urls')),
+  # path('api/v1/', include('app.api.urls')),
   # path('api/auth/', CustomObtainAuthToken.as_view()),
   re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + \

@@ -1,12 +1,16 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
+from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
 from app.forms import CreateLetterForm
 from app.models import Letter, Staff
+from app.permissions import IsClientMixin
+from app.utils.generate_barcode import generate_number
 
 
+@permission_classes((IsClientMixin,))
 def client_letter(request):
     letters_queryset = Letter.objects.all()
     page = request.GET.get('page', 1)
@@ -29,6 +33,7 @@ def client_letter(request):
     return render(request, 'app/client/letter.html', context)
 
 
+@permission_classes((IsClientMixin,))
 def client_new_letter(request):
     staff_queryset = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -51,6 +56,7 @@ def client_new_letter(request):
     return render(request, 'app/client/new-letter.html', context)
 
 
+@permission_classes((IsClientMixin,))
 def client_report(request):
     reports = Staff.objects.all()
     page = request.GET.get('page', 1)
@@ -73,15 +79,22 @@ def client_report(request):
     return render(request, 'app/client/report.html', context)
 
 
+@permission_classes((IsClientMixin,))
 def create_letter(request):
     if request.method == 'POST':
         form = CreateLetterForm(request.POST)
         if form.is_valid():
             letter = form.save(commit=False)
-            # letter.client_id = request.user
-            letter.client_id = 1
+            letter.client = request.user
+            if request.user.region:
+                code = request.user.region.code
+                while 1:
+                    barcode = generate_number([int(i) for i in str(code)])
+                    if not Letter.objects.filter(barcode=barcode).exists():
+                        break
+                letter.barcode = barcode
             letter.save()
-            return render(request, 'app/client/create-letter.html', {'form': form})
+            return redirect('client_letter_page')
     else:
         form = CreateLetterForm()
     return render(request, 'app/client/create-letter.html', {'form': form})

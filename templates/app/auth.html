@@ -29,13 +29,25 @@
     </style>
 {% endblock %}
 
-{% block content %}
+{% block main_body %}
     <div id="main-container" class="container-fluid">
         <div class="row">
             <div id="auth-form" class="card border-primary">
                 <h5 class="card-header bg-primary text-white">
                     Dasturga kirish
                 </h5>
+                {% if messages %}
+                    <div class="container mb-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} d-block"
+                                         role="alert">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
                 <div class="card-body">
                     <form class="panel-body" method="post" action="{% url 'login_page' %}">
                         {% csrf_token %}
@@ -43,16 +55,17 @@
                             <span class="input-group-text">
                               <i class="fa fa-user"></i>
                             </span>
-                            <input type="text" id="login" name="login" class="form-control" placeholder="Login">
+{#                            <input type="text" id="login" name="login" class="form-control" placeholder="Login">#}
+                            {{ form.username }}
                         </div>
                         <div class="input-group">
                             <span class="input-group-text">
                               <i class="fa fa-lock"></i>
                             </span>
-                            <input type="password" id="password" name="password" class="form-control"
-                                   placeholder="Parol">
+{#                            <input type="password" id="password" name="password" class="form-control" placeholder="Parol">#}
+                            {{ form.password }}
                         </div>
-                        <button type="button" class="btn btn-primary">Kirish</button>
+                        <button type="submit" class="btn btn-primary">Kirish</button>
                     </form>
                 </div>
             </div>

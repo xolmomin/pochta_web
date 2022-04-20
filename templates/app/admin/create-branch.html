@@ -1,0 +1,39 @@
+{% extends 'app/client/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    Xodim qo'shish oynasi
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-md-12">
+        {#        <h4>{{ my_filter.form }}</h4>#}
+        <form method="post" action="#" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.name|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.region|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.phone|as_crispy_field }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.address|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-2 mb-0">
+                    {{ form.phone|as_crispy_field }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Qo'shish</button>
+        </form>
+    </div>
+
+{% endblock %}

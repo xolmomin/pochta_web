@@ -1,15 +1,16 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
+from app.forms import CreateBranchForm
 from app.models import Letter, Staff
 from app.permissions import IsAdminMixin
 
 
 @permission_classes((IsAdminMixin,))
 def admin_letter(request):
-    letters_queryset = Letter.objects.all()
+    letters_queryset = Letter.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     my_filter = LetterFilter(request.GET, letters_queryset)
@@ -33,7 +34,7 @@ def admin_letter(request):
 
 @permission_classes((IsAdminMixin,))
 def admin_client(request):
-    staff_queryset = Staff.objects.all()
+    staff_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -56,7 +57,7 @@ def admin_client(request):
 
 @permission_classes((IsAdminMixin,))
 def admin_staff(request):
-    staffs_queryset = Staff.objects.all()
+    staffs_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -79,7 +80,7 @@ def admin_staff(request):
 
 @permission_classes((IsAdminMixin,))
 def admin_report(request):
-    reports = Staff.objects.all()
+    reports = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -102,7 +103,7 @@ def admin_report(request):
 
 @permission_classes((IsAdminMixin,))
 def admin_branch(request):
-    branches = Staff.objects.all()
+    branches = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -121,3 +122,17 @@ def admin_branch(request):
         # 'my_filter': my_filter
     }
     return render(request, 'app/admin/branch.html', context)
+
+
+@permission_classes((IsAdminMixin,))
+def admin_create_branch(request):
+    if request.method == 'POST':
+        form = CreateBranchForm(request.POST)
+        if form.is_valid():
+            branch = form.save(commit=False)
+            branch.client = request.user
+            branch.save()
+            return redirect('client_letter_page')
+    else:
+        form = CreateBranchForm()
+    return render(request, 'app/admin/create-branch.html', {'form': form})

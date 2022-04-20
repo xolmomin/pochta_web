@@ -9,7 +9,7 @@ from app.permissions import IsModeratorMixin
 
 @permission_classes([IsModeratorMixin])
 def moderator_letter(request):
-    letters_queryset = Letter.objects.all()
+    letters_queryset = Letter.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     my_filter = LetterFilter(request.GET, letters_queryset)
@@ -33,7 +33,7 @@ def moderator_letter(request):
 
 @permission_classes((IsModeratorMixin,))
 def moderator_client(request):
-    staff_queryset = Staff.objects.all()
+    staff_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -56,7 +56,7 @@ def moderator_client(request):
 
 @permission_classes((IsModeratorMixin,))
 def moderator_staff(request):
-    staffs_queryset = Staff.objects.all()
+    staffs_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -79,7 +79,7 @@ def moderator_staff(request):
 
 @permission_classes((IsModeratorMixin,))
 def moderator_report(request):
-    reports = Staff.objects.all()
+    reports = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)

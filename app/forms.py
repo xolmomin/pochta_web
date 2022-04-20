@@ -27,6 +27,31 @@ class CreateLetterForm(forms.ModelForm):
         }
 
 
+class CreateBranchForm(forms.ModelForm):
+    name = forms.CharField(label='FIO')
+    phone = forms.CharField(label='Telefon')
+    region = forms.CharField(label='Viloyat')
+    address = forms.CharField(label='Manzil')
+    email = forms.CharField(label='Elektron Pochta')
+    username = forms.CharField(label='Login')
+    password = forms.CharField(label='Parol')
+
+    class Meta:
+        model = Staff
+        fields = ['name', 'phone', 'region', 'address', 'email', 'username', 'password']
+        # labels = {
+        #     'name': 'FIO',
+        #     'phone': 'Telefon',
+        #     'address': 'Manzil',
+        #     'letter_text': 'Xat',
+        # }
+        # widgets = {
+        #     'name': TextInput(attrs={'placeholder': 'FIO'}),
+        #     'phone': TextInput(attrs={'placeholder': 'Telefon', 'type': 'number'}),
+        #     'address': TextInput(attrs={'placeholder': 'Manzil'}),
+        # }
+
+
 class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Login'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control", 'placeholder': 'Parol'}))

@@ -12,7 +12,7 @@ from app.utils.generate_barcode import generate_number
 
 @permission_classes((IsClientMixin,))
 def client_letter(request):
-    letters_queryset = Letter.objects.all()
+    letters_queryset = Letter.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     my_filter = LetterFilter(request.GET, letters_queryset)
@@ -35,7 +35,7 @@ def client_letter(request):
 
 @permission_classes((IsClientMixin,))
 def client_new_letter(request):
-    staff_queryset = Staff.objects.all()
+    staff_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)
@@ -58,7 +58,7 @@ def client_new_letter(request):
 
 @permission_classes((IsClientMixin,))
 def client_report(request):
-    reports = Staff.objects.all()
+    reports = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
 
     # my_filter = LetterFilter(request.GET, staff_queryest)

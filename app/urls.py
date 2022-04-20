@@ -14,7 +14,8 @@ urlpatterns += [
     path('admin/client', admin.admin_client, name='admin_client_page'),
     path('admin/staff', admin.admin_staff, name='admin_staff_page'),
     path('admin/report', admin.admin_report, name='admin_report_page'),
-    path('admin/branch', admin.admin_branch, name='admin_branch_page'),
+    path('admin/branch', admin.admin_create_branch, name='admin_create_branch_page'),
+    path('admin/create-branch', admin.admin_branch, name='admin_branch_page'),
 ]
 
 # client

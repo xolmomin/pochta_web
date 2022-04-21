@@ -106,16 +106,16 @@ class Staff(AbstractUser):
     district = ForeignKey("app.District", SET_NULL, null=True, blank=True, verbose_name='Tuman')
 
     name = CharField(max_length=255, verbose_name='FIO')
-    company = CharField(max_length=255, blank=True, null=True)
-    inn = CharField(max_length=100, blank=True, null=True, validators=[validate_integer])
+    company = CharField(max_length=255, blank=True, null=True, verbose_name='Kompaniya')
+    inn = CharField(max_length=100, blank=True, null=True, validators=[validate_integer], verbose_name='INN')
     phone = CharField(max_length=15, null=True, blank=True, verbose_name='Telefon')
     address = CharField(max_length=255, blank=True, null=True, verbose_name='Manzil')
     role = CharField(max_length=15, choices=ROLE, blank=True, null=True)
-    passport_number = CharField(max_length=9, blank=True, null=True)
-    passport_give_date = DateField(blank=True, null=True)
-    given_by_whom = CharField(max_length=255, blank=True, null=True)
-    mfo = CharField(max_length=255, blank=True, null=True)
-    r_s = CharField(max_length=255, blank=True, null=True)
+    passport_number = CharField(max_length=9, blank=True, null=True, verbose_name='Pasport seriyasi')
+    passport_give_date = DateField(blank=True, null=True, verbose_name='Berilgan sana')
+    given_by_whom = CharField(max_length=255, blank=True, null=True, verbose_name='Kim tomonidan berilgan')
+    mfo = CharField(max_length=255, blank=True, null=True, verbose_name='MFO')
+    r_s = CharField(max_length=255, blank=True, null=True, verbose_name='R/s')
     bank = CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):

@@ -1,0 +1,32 @@
+{% extends 'app/client/base.html' %}
+{% load static %}
+
+{% block title %}
+    Hisobot oynasi
+{% endblock %}
+
+{% block content %}
+   <div class="container">
+    <h1>Export</h1>
+    <div class="row w-">
+
+        <div class="col-md-10">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <label for="myfile1">Shablon1:</label>
+                    <input type="file" id="myfile1" name="myfile">
+                </li>
+                <li class="list-group-item">
+                    <label for="myfile2">Shablon2:</label>
+                    <input type="file" id="myfile2" name="myfile">
+                </li>
+                <li class="list-group-item">
+                    <label for="myfile3">Shablon3:</label>
+                    <input type="file" id="myfile3" name="myfile">
+                </li>
+            </ul>
+        </div>
+
+    </div>
+   </div>
+{% endblock %}

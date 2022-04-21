@@ -1,14 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render, redirect
 from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
-from app.forms import CreateBranchForm
+from app.forms import CreateBranchForm, CreateStaffForm, CreateClientForm
 from app.models import Letter, Staff
 from app.permissions import IsAdminMixin
 
 
-@permission_classes((IsAdminMixin,))
 def admin_letter(request):
     letters_queryset = Letter.objects.order_by('-id')
     page = request.GET.get('page', 1)
@@ -56,6 +56,20 @@ def admin_client(request):
 
 
 @permission_classes((IsAdminMixin,))
+def admin_create_client(request):
+    if request.method == 'POST':
+        form = CreateClientForm(request.POST)
+        if form.is_valid():
+            staff = form.save(commit=False)
+            staff.client = request.user
+            staff.save()
+            return redirect('admin_staff_page')
+    else:
+        form = CreateClientForm()
+    return render(request, 'app/admin/create-client.html', {'form': form})
+
+
+@permission_classes((IsAdminMixin,))
 def admin_staff(request):
     staffs_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
@@ -76,6 +90,20 @@ def admin_staff(request):
         # 'my_filter': my_filter
     }
     return render(request, 'app/admin/staff.html', context)
+
+
+@permission_classes((IsAdminMixin,))
+def admin_create_staff(request):
+    if request.method == 'POST':
+        form = CreateStaffForm(request.POST)
+        if form.is_valid():
+            staff = form.save(commit=False)
+            staff.client = request.user
+            staff.save()
+            return redirect('admin_staff_page')
+    else:
+        form = CreateStaffForm()
+    return render(request, 'app/admin/create-staff.html', {'form': form})
 
 
 @permission_classes((IsAdminMixin,))
@@ -132,7 +160,7 @@ def admin_create_branch(request):
             branch = form.save(commit=False)
             branch.client = request.user
             branch.save()
-            return redirect('client_letter_page')
+            return redirect('admin_branch_page')
     else:
         form = CreateBranchForm()
     return render(request, 'app/admin/create-branch.html', {'form': form})

@@ -1,8 +1,9 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.shortcuts import render
-from rest_framework.decorators import permission_classes, api_view
+from django.shortcuts import render, redirect
+from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
+from app.forms import CreateClientForm, CreateStaffForm
 from app.models import Letter, Staff
 from app.permissions import IsModeratorMixin
 
@@ -55,6 +56,20 @@ def moderator_client(request):
 
 
 @permission_classes((IsModeratorMixin,))
+def moderator_create_client(request):
+    if request.method == 'POST':
+        form = CreateClientForm(request.POST)
+        if form.is_valid():
+            staff = form.save(commit=False)
+            staff.client = request.user
+            staff.save()
+            return redirect('mod_client_page')
+    else:
+        form = CreateClientForm()
+    return render(request, 'app/moderator/create-client.html', {'form': form})
+
+
+@permission_classes((IsModeratorMixin,))
 def moderator_staff(request):
     staffs_queryset = Staff.objects.order_by('-id')
     page = request.GET.get('page', 1)
@@ -75,6 +90,20 @@ def moderator_staff(request):
         # 'my_filter': my_filter
     }
     return render(request, 'app/moderator/staff.html', context)
+
+
+@permission_classes((IsModeratorMixin,))
+def moderator_create_staff(request):
+    if request.method == 'POST':
+        form = CreateStaffForm(request.POST)
+        if form.is_valid():
+            staff = form.save(commit=False)
+            staff.client = request.user
+            staff.save()
+            return redirect('mod_staff_page')
+    else:
+        form = CreateStaffForm()
+    return render(request, 'app/moderator/create-staff.html', {'form': form})
 
 
 @permission_classes((IsModeratorMixin,))

@@ -1,10 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views import generic
-from django.views.generic import View, FormView
-from django.contrib import messages
+from django.views.generic import FormView
 
 from app.forms import LoginForm
 from app.models import Staff
@@ -13,6 +12,17 @@ from app.models import Staff
 class LoginView(FormView):
     form_class = LoginForm
     template_name = 'app/auth.html'
+
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        if user.is_authenticated:
+            if user.role == Staff.ADMIN:
+                return redirect('admin_letter_page')
+            if user.role == Staff.CLIENT:
+                return redirect('client_new_letter_page')
+            if user.role == Staff.MODERATOR:
+                return redirect('mod_letter_page')
+        return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
         if form.is_valid():

@@ -1,11 +1,11 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.views.generic import View
 from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
 from app.forms import CreateLetterForm
-from app.models import Letter, Staff
+from app.models import Letter, Staff, Region, District
 from app.permissions import IsClientMixin
 from app.utils.generate_barcode import generate_number
 
@@ -25,10 +25,13 @@ def client_letter(request):
         letters_queryset = paginator.page(1)
     except EmptyPage:
         letters_queryset = paginator.page(paginator.num_pages)
-
+    region = Region.objects.all()
+    districts = District.objects.all()
     context = {
         'letters': letters_queryset,
-        'my_filter': my_filter
+        'my_filter': my_filter,
+        "regions": region,
+        "districts": districts
     }
     return render(request, 'app/client/letter.html', context)
 
@@ -98,3 +101,8 @@ def create_letter(request):
     else:
         form = CreateLetterForm()
     return render(request, 'app/client/create-letter.html', {'form': form})
+
+
+@permission_classes((IsClientMixin,))
+def client_export(request):
+    return render(request, 'app/client/export.html')

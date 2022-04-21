@@ -50,7 +50,7 @@
                     <li class="page-item"><a class="page-link"
                                              href="?page={{ staffs.previous_page_number }}">&laquo;</a></li>
                 {% else %}
-                    <li class="page-item disabled"><span>&laquo;</span></li>
+                    <li class="page-item disabled" style="color: transparent !important;"><span>&laquo;</span></li>
                 {% endif %}
 
                 {% for i in staffs.paginator.page_range %}
@@ -69,7 +69,7 @@
                     <li class="page-item"><a class="page-link" href="?page={{ staffs.next_page_number }}">&raquo;</a>
                     </li>
                 {% else %}
-                    <li class="page-item disabled"><span>&raquo;</span></li>
+                    <li class="page-item disabled" style="color: transparent !important;"><span>&raquo;</span></li>
                 {% endif %}
 
             </ul>

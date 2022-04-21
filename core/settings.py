@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'ckeditor',
     'ckeditor_uploader',
+    'widget_tweaks',
     'app',
 ]
 
@@ -151,3 +152,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_UPLOAD_PATH = "image_upload/"
+
+LOGIN_REDIRECT_URL = '/'

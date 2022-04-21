@@ -1,9 +1,9 @@
-{% extends 'app/admin/base.html' %}
+{% extends 'app/moderator/base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
 
 {% block title %}
-    Filial qo'shish oynasi
+    Xodim qo'shish oynasi
 {% endblock %}
 
 {% block content %}
@@ -13,21 +13,37 @@
         <form method="post" action="#" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-row">
-                <div class="form-group col-md-4 mb-0">
+                <div class="form-group col-md-6 mb-0">
                     {{ form.name|as_crispy_field }}
                 </div>
-                <div class="form-group col-md-4 mb-0">
+                <div class="form-group col-md-6 mb-0">
                     {{ form.phone|as_crispy_field }}
                 </div>
+            </div>
+
+            <div class="form-row">
                 <div class="form-group col-md-4 mb-0">
                     {{ form.region|as_crispy_field }}
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12 mb-0">
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.district|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
                     {{ form.address|as_crispy_field }}
                 </div>
             </div>
+            <div class="form-row">
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.passport_number|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.passport_give_date|as_crispy_field }}
+                </div>
+                <div class="form-group col-md-4 mb-0">
+                    {{ form.given_by_whom|as_crispy_field }}
+                </div>
+            </div>
+
             <div class="form-row">
                 <div class="form-group col-md-4 mb-0">
                     {{ form.username|as_crispy_field }}
@@ -36,7 +52,7 @@
                     {{ form.password|as_crispy_field }}
                 </div>
                 <div class="form-group col-md-4 mb-0">
-                    {{ form.email|as_crispy_field }}
+                    {{ form.branch|as_crispy_field }}
                 </div>
             </div>
 

@@ -4,15 +4,16 @@ from django.shortcuts import render, redirect
 from rest_framework.decorators import permission_classes
 
 from app.filters import LetterFilter
-from app.forms import CreateLetterForm
+from app.forms import CreateLetterForm, UploadFileForm
 from app.models import Letter, Staff, Region, District
 from app.permissions import IsClientMixin
+from app.utils.export_xlsx_files_sert import generate_certification_pdf
 from app.utils.generate_barcode import generate_number
 
 
 @permission_classes((IsClientMixin,))
 def client_letter(request):
-    letters_queryset = Letter.objects.order_by('-id')
+    letters_queryset = Letter.objects.filter(client=request.user).order_by('-id')
     page = request.GET.get('page', 1)
 
     my_filter = LetterFilter(request.GET, letters_queryset)
@@ -105,4 +106,12 @@ def create_letter(request):
 
 @permission_classes((IsClientMixin,))
 def client_export(request):
-    return render(request, 'app/client/export.html')
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = request.FILES['file']
+            generate_certification_pdf(file, request.user.id)
+            return redirect('client_letter_page')
+    else:
+        form = UploadFileForm()
+    return render(request, 'app/client/export.html', {'form': form})

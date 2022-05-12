@@ -6,27 +6,24 @@
 {% endblock %}
 
 {% block content %}
-   <div class="container">
-    <h1>Export</h1>
-    <div class="row w-">
+    <div class="container">
+        <h1>Excel faylni yuklang</h1>
+        <div class="row w-">
 
-        <div class="col-md-10">
-            <ul class="list-group">
-                <li class="list-group-item">
-                    <label for="myfile1">Shablon1:</label>
-                    <input type="file" id="myfile1" name="myfile">
-                </li>
-                <li class="list-group-item">
-                    <label for="myfile2">Shablon2:</label>
-                    <input type="file" id="myfile2" name="myfile">
-                </li>
-                <li class="list-group-item">
-                    <label for="myfile3">Shablon3:</label>
-                    <input type="file" id="myfile3" name="myfile">
-                </li>
-            </ul>
+            <div class="col-md-10">
+                <ul class="list-group">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form }}
+{#                        <li class="list-group-item">#}
+{#                            <label for="excel">xlsx:</label>#}
+{#                            <input type="file" id="file" name="file">#}
+{#                        </li>#}
+                        <button type="submit" class="btn btn-primary">Yuborish</button>
+                    </form>
+                </ul>
+            </div>
+
         </div>
-
     </div>
-   </div>
 {% endblock %}

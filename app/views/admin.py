@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render, redirect
 from rest_framework.decorators import permission_classes
 
@@ -7,6 +9,7 @@ from app.filters import LetterFilter
 from app.forms import CreateBranchForm, CreateStaffForm, CreateClientForm
 from app.models import Letter, Staff
 from app.permissions import IsAdminMixin
+from core.settings import CLIENTS
 
 
 def admin_letter(request):
@@ -30,6 +33,100 @@ def admin_letter(request):
     }
 
     return render(request, 'app/admin/letter.html', context)
+
+
+def admin_letter_cert(request):
+    letters_queryset = Letter.objects.filter(client__username=CLIENTS['certificate']).order_by('-id')
+    page = request.GET.get('page', 1)
+
+    my_filter = LetterFilter(request.GET, letters_queryset)
+    letters_queryset = my_filter.qs
+
+    paginator = Paginator(letters_queryset, 10)
+    try:
+        letters_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        letters_queryset = paginator.page(1)
+    except EmptyPage:
+        letters_queryset = paginator.page(paginator.num_pages)
+
+    context = {
+        'letters': letters_queryset,
+        'my_filter': my_filter
+    }
+
+    return render(request, 'app/admin/cerf-letter.html', context)
+
+
+def _merge_pdf():
+    import fitz
+
+    result = fitz.open()
+    list_pdfs = list(filter(lambda x: x,
+                            Letter.objects.filter(client__username=CLIENTS['certificate']).values_list('file',
+                                                                                                       flat=True)))
+    for pdf in list_pdfs:
+        with fitz.open(f'media/{pdf}') as mfile:
+            result.insert_pdf(mfile)
+
+    result.save('test.pdf')
+    return result
+
+
+def admin_letter_generate_link(request):
+    # pdf = open('app/tmp/cerf/000000000001.pdf')
+    # response = HttpResponse(pdf, content_type='application/pdf')
+    # response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+    # return response
+    response_file = _merge_pdf()
+    return FileResponse(response_file, content_type='application/pdf')
+    # return FileResponse(open('test.pdf', 'rb'), content_type='application/pdf')
+
+
+def admin_letter_population(request):
+    letters_queryset = Letter.objects.filter(client__username=CLIENTS['population']).order_by('-id')
+    page = request.GET.get('page', 1)
+
+    my_filter = LetterFilter(request.GET, letters_queryset)
+    letters_queryset = my_filter.qs
+
+    paginator = Paginator(letters_queryset, 10)
+    try:
+        letters_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        letters_queryset = paginator.page(1)
+    except EmptyPage:
+        letters_queryset = paginator.page(paginator.num_pages)
+
+    context = {
+        'letters': letters_queryset,
+        'my_filter': my_filter
+    }
+
+    return render(request, 'app/admin/common-letter.html', context)
+
+
+def admin_letter_juridik(request):
+    letters_queryset = Letter.objects.filter(client__username=CLIENTS['juridik']).order_by('-id')
+    page = request.GET.get('page', 1)
+
+    my_filter = LetterFilter(request.GET, letters_queryset)
+    letters_queryset = my_filter.qs
+
+    paginator = Paginator(letters_queryset, 10)
+    try:
+        letters_queryset = paginator.page(page)
+    except PageNotAnInteger:
+        letters_queryset = paginator.page(1)
+    except EmptyPage:
+        letters_queryset = paginator.page(paginator.num_pages)
+
+    context = {
+        'letters': letters_queryset,
+        'my_filter': my_filter
+    }
+
+    return render(request, 'app/admin/juridik-letter.html', context)
 
 
 @permission_classes((IsAdminMixin,))
@@ -159,6 +256,8 @@ def admin_create_branch(request):
         if form.is_valid():
             branch = form.save(commit=False)
             branch.client = request.user
+            branch.role = Staff.CLIENT
+            branch.password = make_password(form.cleaned_data['password'])
             branch.save()
             return redirect('admin_branch_page')
     else:

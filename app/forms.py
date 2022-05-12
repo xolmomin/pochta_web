@@ -10,6 +10,9 @@ class LoginForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", 'placeholder': 'Login'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': "form-control", 'placeholder': 'Parol'}))
 
+    def full_clean(self):
+        super().full_clean()
+
     def clean_username(self):
         username = self.cleaned_data['username']
         if not Staff.objects.filter(username=username).exists():
@@ -17,8 +20,12 @@ class LoginForm(forms.Form):
         return username
 
     def clean_password(self):
-        username = self.clean_username()
+        username = self.cleaned_data['username']
         password = self.cleaned_data['password']
+
+        if not Staff.objects.filter(username=username).exists():
+            raise ValidationError('Login xato')
+
         user = Staff.objects.filter(username=username).first()
         if not user.check_password(password):
             raise ValidationError('Parol xato')
@@ -42,7 +49,7 @@ class CreateBranchForm(forms.ModelForm):
             'address': TextInput(attrs={'placeholder': 'Manzil'}),
             'email': EmailInput(),
             'username': TextInput(attrs={'placeholder': 'Login'}),
-            'password': PasswordInput(attrs={'placeholder': 'Elektron pochta'}),
+            'password': PasswordInput(attrs={'placeholder': 'Parol'}),
         }
         help_texts = {
             'username': '',
@@ -107,3 +114,7 @@ class CreateLetterForm(forms.ModelForm):
             'phone': TextInput(attrs={'placeholder': 'Telefon', 'type': 'number'}),
             'address': TextInput(attrs={'placeholder': 'Manzil'}),
         }
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()

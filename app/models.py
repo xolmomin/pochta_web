@@ -9,7 +9,7 @@ from django.db.models import (
     ForeignKey,
     SET_NULL,
     CharField,
-    DateField,
+    DateField, FileField,
 )
 
 
@@ -74,7 +74,8 @@ class Letter(Model):
     address = CharField(max_length=255, blank=True, null=True, verbose_name='Manzil')
     barcode = CharField(max_length=12, blank=True, null=True)
     letter_text = RichTextUploadingField(null=True, blank=True, verbose_name='Xat')
-
+    file = FileField(upload_to='letter/%Y/%m/%d', blank=True, null=True, verbose_name='Fayl')
+    comment = CharField(max_length=25, blank=True, null=True, verbose_name='Izoh')
     delivered_at = DateTimeField(blank=True, null=True)
     currier_accepted_at = DateTimeField(blank=True, null=True)
     created_at = DateTimeField(auto_now_add=True, editable=False)

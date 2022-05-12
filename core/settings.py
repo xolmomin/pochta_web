@@ -154,3 +154,8 @@ CKEDITOR_IMAGE_BACKEND = "pillow"
 CKEDITOR_UPLOAD_PATH = "image_upload/"
 
 LOGIN_REDIRECT_URL = '/'
+CLIENTS = {
+    'certificate': 'sertifikat',
+    'population': 'aholi',
+    'juridik': 'juridik'
+}

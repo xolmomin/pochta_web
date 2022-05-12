@@ -17,13 +17,13 @@
             <thead>
             <th><input type="checkbox" id="checkall"/></th>
             <th>ID</th>
-            <th>Tashkilot</th>
             <th>Shtrix kod</th>
             <th>Viloyat</th>
             <th>Tuman</th>
             <th>Sana</th>
             <th>Yetkazilgan sana</th>
             <th>Status</th>
+            <th>Izoh</th>
             </thead>
             <tbody>
             {% for letter in letters %}
@@ -32,19 +32,18 @@
                         <input type="checkbox" class="checkthis"/>
                     </td>
                     <td>{{ letter.id }}</td>
-                    <td>{{ letter.company }}</td>
                     <td>{{ letter.barcode }}</td>
                     <td>{{ letter.region }}</td>
                     <td>{{ letter.district }}</td>
                     <td>{{ letter.created_at|date:"m-d-Y H:i" }}</td>
                     <td>{{ letter.delivered_at|date:"m-d-Y H:i" }}</td>
                     <td>{{ letter.get_status }}</td>
+                    <td>{{ letter.comment }}</td>
                 </tr>
             {% endfor %}
             </tbody>
 
         </table>
-
     </div>
 
     {% if letters.has_other_pages %}

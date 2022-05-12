@@ -1,0 +1,80 @@
+{% extends 'app/admin/base.html' %}
+{% load static %}
+
+{% block title %}
+    Xatlar oynasi
+{% endblock %}
+
+{% block content %}
+    <div class="col-md-12">
+        <h4 class="mb-3 text-center" style="font-weight: bold;">
+            {% if request.resolver_match.url_name == 'admin_letter_cert_page' %}
+                Sertifikat Xatlar
+            {% elif request.resolver_match.url_name == 'admin_letter_population_page' %}
+                Alohi Xatlar
+            {% elif request.resolver_match.url_name == 'admin_letter_juridik_page' %}
+                Yuridik Xatlar
+            {% endif %}
+        </h4>
+        {#        <h4>{{ my_filter.form }}</h4>#}
+
+        <div class="table-responsive">
+            <table id="bootstrapdatatable" class="table table-striped table-bordered" width="100%">
+                <thead>
+                <th><input type="checkbox" id="checkall"/></th>
+                <th>ID</th>
+                <th>Oluvchi FIO</th>
+                <th>Adres</th>
+                <th>Sana</th>
+                </thead>
+                <tbody>
+                {% for letter in letters %}
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="checkthis"/>
+                        </td>
+                        <td>{{ letter.id }}</td>
+                        <td>{{ letter.name }}</td>
+                        <td>{{ letter.address }}</td>
+                        <td>{{ letter.created_at }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% if letters.has_other_pages %}
+            <ul class="pagination">
+                {% if letters.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ letters.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                    <li class="page-item disabled" style="color: transparent !important;"><span>&laquo;</span></li>
+                {% endif %}
+
+                {% for i in letters.paginator.page_range %}
+                    {% if letters.number == i %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ i }}
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if letters.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ letters.next_page_number }}">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled" style="color: transparent !important;"><span>&raquo;</span></li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+
+    </div>
+{% endblock %}

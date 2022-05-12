@@ -15,57 +15,81 @@
         </nav>
     </div>
     <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item">
-                        <a href="{% url 'admin_letter_page' %}" class="nav-link
+        <div class="row">
+            <div class="col-md-2">
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="{% url 'admin_letter_page' %}" class="nav-link
                             {% if request.resolver_match.url_name == 'admin_letter_page' %}
                             active
                             {% endif %}">
-                            Xatlar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'admin_client_page' %}" class="nav-link link-dark
+                                Xatlar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'admin_letter_cert_page' %}" class="nav-link
+                            {% if request.resolver_match.url_name == 'admin_letter_cert_page' %}
+                            active
+                            {% endif %}">
+                                Sertifikat Xatlar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'admin_letter_population_page' %}" class="nav-link
+                            {% if request.resolver_match.url_name == 'admin_letter_population_page' %}
+                            active
+                            {% endif %}">
+                                Alohi Xatlar
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'admin_letter_juridik_page' %}" class="nav-link
+                            {% if request.resolver_match.url_name == 'admin_letter_juridik_page' %}
+                            active
+                            {% endif %}">
+                                Yuridik Xatlar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_client_page' %}" class="nav-link link-dark
                             {% if request.resolver_match.url_name == 'admin_client_page' %}
                             active
                             {% endif %}">
-                            Klientlar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'admin_staff_page' %}" class="nav-link link-dark
+                                Klientlar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_staff_page' %}" class="nav-link link-dark
                             {% if request.resolver_match.url_name == 'admin_staff_page' %}
                           active
                             {% endif %}">
-                            Xodimlar
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'admin_report_page' %}" class="nav-link link-dark
+                                Xodimlar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_report_page' %}" class="nav-link link-dark
                             {% if request.resolver_match.url_name == 'admin_report_page' %}
                           active
                             {% endif %}">
-                            Hisobot
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'admin_branch_page' %}" class="nav-link link-dark
+                                Hisobot
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_branch_page' %}" class="nav-link link-dark
                             {% if request.resolver_match.url_name == 'admin_branch_page' %}
                           active
                             {% endif %}">
-                            Filiallar
-                        </a>
-                    </li>
-                </ul>
+                                Filiallar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-10">
+                {% block content %}{% endblock %}
             </div>
         </div>
-
-        <div class="col-md-10">
-            {% block content %}{% endblock %}
-        </div>
-    </div>
     </div>
 {% endblock %}

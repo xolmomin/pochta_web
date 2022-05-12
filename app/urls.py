@@ -11,6 +11,10 @@ urlpatterns = [
 # admin
 urlpatterns += [
     path('admin/letter', admin.admin_letter, name='admin_letter_page'),
+    path('admin/letter-generate-link', admin.admin_letter_generate_link, name='pdf_generated_link'),
+    path('admin/letter-certificate', admin.admin_letter_cert, name='admin_letter_cert_page'),
+    path('admin/letter-population', admin.admin_letter_population, name='admin_letter_population_page'),
+    path('admin/letter-juridik', admin.admin_letter_juridik, name='admin_letter_juridik_page'),
     path('admin/client', admin.admin_client, name='admin_client_page'),
     path('admin/create-client', admin.admin_create_client, name='admin_create_client_page'),
     path('admin/staff', admin.admin_staff, name='admin_staff_page'),
@@ -26,7 +30,6 @@ urlpatterns += [
     path('client/new-letter', client.client_new_letter, name='client_new_letter_page'),
     path('client/create-letter', client.create_letter, name='client_create_letter_page'),
     path('client/report', client.client_report, name='client_report_page'),
-    path('client/export', client.client_export, name='client_export_page'),
     path('client/export', client.client_export, name='client_export_page'),
 
 ]
